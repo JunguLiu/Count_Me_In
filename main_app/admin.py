@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Plans, User, Comments, Workouts
 
-# Register your models here.
+admin.site.register(Plans)
+admin.site.register(User)
+admin.site.register(Comments)
+admin.site.register(Workouts)
