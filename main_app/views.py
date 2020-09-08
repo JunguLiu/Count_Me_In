@@ -10,9 +10,13 @@ def plans_index(request):
 
 
 def plans_detail(request, plan_id):
-    plan = Plans.objects.get(id=paln_id)
+    plan = Plans.objects.get(id=plan_id)
     return render(request, "plan/detail.html", {"plan": plan})
 
 
 def plans_create(request):
     return render(request, "plan/create.html")
+
+
+def main_page(request):
+    return render(request, "main-page.html")
