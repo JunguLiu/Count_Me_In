@@ -5,3 +5,7 @@ from django.views.generic import ListView, DetailView
 
 def plans_index(request):
     return render(request, "plan/index.html")
+
+
+def main_page(request):
+    return render(request, "main-page.html")

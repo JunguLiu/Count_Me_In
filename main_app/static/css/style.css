@@ -1,0 +1,298 @@
+/* ******************           BASIC SETUP         ****************** */
+* {
+    margin     : 0;
+    padding    : 0;
+    box-sizing : border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height    : 200vh;
+    font-family   : 'Overpass', sans-serif;
+    text-rendering: optimizeLegibility;
+    font-size     : 20px;
+    font-weight   : 300;
+    overflow-x    : hidden;
+}
+
+/* ******************          SECTION HEADER         ****************** */
+
+.section-herder {
+    position        : relative;
+    width           : 100%;
+    height          : 100vh;
+    overflow        : hidden;
+    display         : flex;
+    justify-content : flex-start;
+    align-items     : center;
+    padding         : 100px 150px;
+    background-color: #000;
+
+}
+
+.section-herder header {
+    position       : absolute;
+    TOP            : 0;
+    left           : 0;
+    width          : 100%;
+    padding        : 40px 100px;
+    display        : flex;
+    justify-content: space-between;
+    align-items    : center;
+    z-index        : 10;
+}
+
+.logo {
+    position       : relative;
+    font-size      : 1.5em;
+    color          : #fff;
+    font-weight    : 700;
+    text-decoration: none;
+    text-transform : uppercase;
+    letter-spacing : 1px;
+}
+
+.toggle {
+    position  : fixed;
+    top       : 40px;
+    right     : 40px;
+    width     : 50px;
+    height    : 50px;
+    background: #FFF url(../img/open.png);
+    cursor    : pointer;
+    z-index   : 11;
+}
+
+.toggle.menu-active {
+    background: #a4161a url(../img/close.png);
+    z-index   : 11;
+}
+
+.menu-overlay {
+    position       : fixed;
+    top            : 0;
+    left           : 0;
+    right          : 0;
+    bottom         : 0;
+    background     : #161a1d;
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+    overflow-y     : auto;
+    transform      : scale(0);
+    transition     : 0.5s;
+}
+
+.menu-active {
+    z-index  : 10;
+    transform: scale(1);
+}
+
+.menu-overlay ul {
+    position: relative;
+}
+
+.menu-overlay ul li {
+    position  : relative;
+    list-style: none;
+    text-align: center;
+    display   : block;
+}
+
+.menu-overlay ul li a {
+    position       : relative;
+    text-decoration: none;
+    font-size      : 300%;
+    line-height    : 150%;
+    text-transform : uppercase;
+    color          : #FFF;
+    font-weight    : 700;
+    display        : inline-block;
+}
+
+.menu-overlay ul li a:before {
+    content         : '';
+    position        : absolute;
+    top             : 90%;
+    left            : 0;
+    width           : 100%;
+    height          : 8px;
+    background      : #a4161a;
+    border-radius   : 10px;
+    transform       : translateY(-50%) scaleX(0);
+    transform-origin: right;
+    transition      : 0.5s transform;
+}
+
+.menu-overlay ul li a:hover:before {
+    transform       : translateY(-50%) scaleX(1);
+    transform-origin: left;
+    transition      : 0.5s transform;
+}
+
+.bg {
+    position           : absolute;
+    bottom             : 0;
+    left               : 0;
+    width              : 100%;
+    height             : 100%;
+    opacity            : 0.7;
+    object-fit         : cover;
+    background-position: center;
+}
+
+.runner {
+    position  : absolute;
+    top       : 0;
+    right     : 100px;
+    max-height: 100%;
+}
+
+.text-content {
+    position : absolute;
+    left     : 200px;
+    max-width: 600px;
+}
+
+.text-content h2 {
+    font-size     : 180%;
+    color         : #FFF;
+    font-weight   : 300;
+    line-height   : 2em;
+    text-transform: uppercase;
+}
+
+.text-content h2 span {
+    font-weight   : 1000;
+    font-size     : 4em;
+    letter-spacing: 5px;
+    line-height   : 0.8em;
+}
+
+.text-content p {
+    color     : #FFF;
+    margin-top: -15px;
+}
+
+.text-content a {
+    display        : inline-block;
+    padding        : 10px 20px;
+    border         : 1px solid #ff7f50;
+    color          : #ff7f50;
+    text-decoration: none;
+    text-transform : uppercase;
+    margin-top     : 20px;
+    font-weight    : 600;
+    letter-spacing : 2px;
+    border-radius  : 20px;
+    transition     : background-color 0.2s, border 0.2s, color 0.2s;
+}
+
+.text-content a:hover,
+.text-content a:active {
+    border          : 1px solid #ff662e;
+    color           : #fff;
+    background-color: #ff662e;
+
+}
+
+/* ******************          SECTION IMAGE FILTER         ****************** */
+.section-gallery {
+    padding: 20px;
+    width  : 1280px;
+    margin : 40px auto;
+}
+
+.section-gallery h1 {
+    font-weight   : 500;
+    text-transform: uppercase;
+    font-size     : 220%;
+    word-spacing  : 2px;
+    text-align    : center;
+    margin-bottom : 15px;
+    letter-spacing: 1px;
+    color         : #a4161a;
+}
+
+.section-gallery h1:after {
+    content         : "";
+    display         : block;
+    height          : 5px;
+    border-radius   : 5px;
+    background-color: #ff7f50;
+    width           : 200px;
+    margin          : 30px auto 50px auto;
+}
+
+.section-gallery ul {
+    display      : flex;
+    margin-bottom: 10px;
+}
+
+.section-gallery ul li:nth-child(1) {
+    background-color: #ff7f50;
+}
+
+.section-gallery ul li {
+    list-style    : none;
+    background    : #eee;
+    padding       : 8px 20px;
+    margin        : 5px;
+    letter-spacing: 1px;
+    cursor        : pointer;
+}
+
+.workouts {
+    display  : flex;
+    flex-wrap: wrap;
+}
+
+.workouts .itemBox {
+    position: relative;
+    width   : 300px;
+    height  : 300px;
+    margin  : 5px;
+}
+
+.workouts .itemBox img {
+    position  : absolute;
+    top       : 0;
+    left      : 0;
+    width     : 100%;
+    height    : 100%;
+    object-fit: cover;
+}
+
+.workout-p {
+    color             : rgba(255, 255, 255, 1);
+    background        : black;
+    background        : linear-gradient(bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, .4));
+    background        : -webkit-linear-gradient(bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, .4));
+    background        : -moz-linear-gradient(bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, .4));
+    padding           : 10px;
+    line-height       : 28px;
+    text-align        : justify;
+    position          : absolute;
+    bottom            : 0;
+    margin            : 0;
+    height            : 50px;
+    transition        : height .5s;
+    -webkit-transition: height .5s;
+    -moz-transition   : height .5s;
+}
+
+.workout-p small {
+    opacity: 0;
+}
+
+.show-description .workout-p {
+    height: 100px;
+}
+
+.show-description img {
+    opacity: 0.7;
+}
+
+.show-description small {
+    opacity: 1;
+}
