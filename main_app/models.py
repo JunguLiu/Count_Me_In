@@ -25,6 +25,7 @@ class Plans(models.Model):
     workouts = models.ManyToManyField(Workouts)
     comments = models.ForeignKey(Comments, on_delete=models.CASCADE)
     date = models.DateField
+    image = models.ImageField
 
     def __str__(self):
         return self.name
