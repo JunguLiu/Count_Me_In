@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>My Plans</h1>>
+{% if plans %}
+{% for plan in Plans %}
+
+<h2>plan.name</h2>
+
+{% endfor %}
+{% endif %}
+{% endblock %}
