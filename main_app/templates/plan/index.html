@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>My Plans</h1>>
-{% if plans %}
-{% for plan in Plans %}
-
-<h2>plan.name</h2>
+<h1>My Workot Plans</h1>
+<div class="card planCard">
+  <a href="{% url 'create'%}">
+    <div class="card-content">
+      <span class="card-title">+ Add a new plan</span>
+    </div>
+  </a>
+</div>
+{% for plan in plans %}
+<div class="card planCard">
+  <a href="{% url 'detail' plan.id %}">
+    <div class="card-content">
+      <span class="card-title">{{ plan.name }}</span>
+    </div>
+  </a>
+</div>
 
 {% endfor %}
-{% endif %}
 {% endblock %}
