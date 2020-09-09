@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-
 from .models import Plans, Workouts, Wishlist
 import uuid
 import boto3
@@ -9,6 +8,7 @@ import boto3
 S3_BASE_URL = "https://s3.us-east-1.amazonaws.com/"
 BUCKET = 'countmeincmi'
 # plans
+
 
 
 class PlanCreate(CreateView):
@@ -71,6 +71,8 @@ def workouts_detail(request, workout_id):
 
 
 def wishlists_index(request):
+    wishlists = Wishlist.objects.all()
+    return render(request, "wishlist/wishlist.html", {"wishlists": wishlists})
     return render(request, "wishlist.html")
 
 

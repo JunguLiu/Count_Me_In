@@ -16,6 +16,6 @@ urlpatterns = [
          views.workouts_detail, name='workout_detail'),
     # wishlist
     path('wishlists/', views.wishlists_index, name='wishlists_index'),
-    path('accounts/signup/', views.signup, name='signup'),
 
+    path('accounts/signup/', views.signup, name='signup'),
 ]

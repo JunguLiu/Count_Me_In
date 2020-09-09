@@ -1,13 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="card">
-    <div class="card-content">
-        <span class="card-title">{{ workout.name }}</span>
-        <p>Calorioes: {{ workout.calories }}</p>
-        <p>Categoris: {{ workout.category }}</p>
-    </div>
-</div>
+<div class="container">
+    <section>
+        <div class="row">
+            <div class="col">
+                <div class="workout-img-details">
+                    <img src="https://via.placeholder.com/550x380/FFB6C1/000000" alt="">
+                </div>
+            </div>
+            <div class="col">
+                <h4 class="workout-title">Workout name</h4>
+                <p>
+                    Praesent ac condimentum felis. Nulla at nisl orci, at dignissim dolor, The best product
+                    descriptions address your ideal buyer directly and personally. The best product descriptions
+                    address your ideal buyer directly and personally.
+                </p>
+                <hr>
+                <div class="workout-list">
+                    <span class="posted_in"><strong>Name:</strong> </span><br />
+                    <span class="tagged_as"><strong>Calorioes:</strong> </span><br />
+                    <span class="tagged_as"><strong>Categoris:</strong> </span><br />
+                </div>
+                <hr>
+                <div class="form-container">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-round btn-danger" value="Add to PLAN">
+                    </form>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-round btn-danger" value="Add to WISHLIST">
+                    </form>
+                </div>
 
+            </div>
+        </div>
+    </section>
+</div>
 
 {% endblock %}

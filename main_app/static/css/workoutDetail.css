@@ -1,0 +1,62 @@
+* {
+    margin     : 0;
+    padding    : 0;
+    box-sizing : border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height    : 100vh;
+    font-family   : 'Overpass', sans-serif;
+    text-rendering: optimizeLegibility;
+    font-size     : 20px;
+    font-weight   : 300;
+    overflow-x    : hidden;
+}
+
+.panel-heading {
+    border-color: #eff2f7;
+    font-size   : 16px;
+    font-weight : 300;
+}
+
+.workout-title {
+    color        : #2A3542;
+    font-size    : 14px;
+    font-weight  : 400;
+    margin-bottom: 0;
+    margin-top   : 0;
+    font-family  : 'Open Sans', sans-serif;
+}
+
+.workout-img-details {
+    margin-left: -15px;
+}
+
+.workout-img-details img {
+    width: 100%;
+}
+
+.workout-list {
+    border-top   : 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding      : 10px 0;
+    margin       : 15px 0;
+}
+
+.workout-list span {
+    display      : block;
+    margin-bottom: 10px;
+}
+
+.workout-list a {
+    color: #fc5959;
+}
+
+.form-container {
+    position       : relative;
+    display        : flex;
+    justify-content: flex-start;
+    align-items    : center;
+    padding        : 20px;
+}
