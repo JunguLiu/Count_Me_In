@@ -15,7 +15,6 @@ BUCKET = 'countmeincmi'
 # plans
 
 
-
 class PlanCreate(CreateView):
     model = Plans
     fields = "__all__"
@@ -85,7 +84,6 @@ def workouts_detail(request, workout_id):
 def wishlists_index(request):
     wishlists = Wishlist.objects.all()
     return render(request, "wishlist/wishlist.html", {"wishlists": wishlists})
-    return render(request, "wishlist.html")
 
 
 def show_main(request):

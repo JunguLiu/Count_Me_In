@@ -47,7 +47,12 @@ class User(models.Model):
 
 
 class Wishlist(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+    workouts = models.ManyToManyField(Workouts)
     plans = models.ManyToManyField(Plans)
 
     def __str__(self):
