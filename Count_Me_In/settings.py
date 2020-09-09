@@ -15,7 +15,8 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -80,7 +81,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'CMI',
         'USER': 'postgres',
+
         'PASSWORD': 'password',
+
     }
 }
 
@@ -122,4 +125,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+<<<<<<< HEAD
 django_heroku.settings(locals())
+=======
+
+LOGIN_REDIRECT_URL = '/plans/'
+
+# Add this variable to specify where logging out redirects to
+LOGOUT_REDIRECT_URL = '/plans'
+>>>>>>> 95910bd730fd21370435b123ec5b403b710755ed

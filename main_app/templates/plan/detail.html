@@ -1,25 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>{{ plan.name }} Details</h1>
 
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">{{ plan.name }}</span>
-
-  </div>
-  <div class="card-action">
-    <a href="{% url 'plans_update' plan.id %}">Edit</a>
-    <a href="{% url 'plans_delete' plan.id %}">Delete</a>
-  </div>
-</div>
 
 <hr>
 <div class="row">
   <div class="col s6">
     <h3>{{ plan.name }} plan's workouts</h3>
-    {% if plan.wishlist.count %}
-    {% for wish in plan.wishlist.all %}
+    {% if wishlist.count %}
+    {% for wish in wishlist.all %}
     <div class="card">
       <div class="card-content">
         <span class="card-title">
@@ -35,13 +24,13 @@
   <!-- Available toys will come after this line -->
   <div class="col s6">
     <h3>your saved workouts</h3>
-    {% if wishlist.count %}
-    {% for wish in wishlist.all %}
+    {% if wishlists.count %}
+    {% for wish in wishlists.all %}
     <div class="card">
       <div class="card-content">
-        <span class="card-title">
+        <!-- <span class="card-title">
           {{ wish.name }}
-        </span>
+        </span> -->
       </div>
       <div class="card-action">
         <form action="{% url 'assoc_wishlist' olan.id wish.id %}" method="post">
@@ -57,4 +46,5 @@
 
 
 </div>
+
 {% endblock %}

@@ -27,10 +27,10 @@ body {
     align-items     : center;
     padding         : 100px 150px;
     background-color: #000;
+
 }
 
-header {
-    display        : block;
+.section-herder header {
     position       : absolute;
     TOP            : 0;
     left           : 0;
@@ -45,7 +45,7 @@ header {
 .logo {
     position       : relative;
     font-size      : 1.5em;
-    color          : #ff7f50;
+    color          : #fff;
     font-weight    : 700;
     text-decoration: none;
     text-transform : uppercase;
@@ -54,8 +54,8 @@ header {
 
 .toggle {
     position  : fixed;
-    top       : 0;
-    right     : 0;
+    top       : 40px;
+    right     : 40px;
     width     : 50px;
     height    : 50px;
     background: #FFF url(../img/open.png);
@@ -300,19 +300,18 @@ header {
 /* ******************          SECTION HEADER         ****************** */
 
 footer.page-footer {
-    padding-top: 0;
-    text-align : center;
+  padding-top: 0;
+  text-align: center;
 
 }
-
-footer {
-    position  : absolute;
-    bottom    : 0;
-    text-align: center;
+footer{
+  position: absolute;
+  bottom: 0;
+  text-align: center;
 }
 
 /* ******************          PLAN-INDEX PAGE         ****************** */
 
-.h1Plan {
-    margin-bottom: 50px;
+.h1Plan{
+  margin-bottom: 50px;
 }
