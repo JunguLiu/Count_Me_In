@@ -9,7 +9,6 @@ class Comments(models.Model):
         return self.name
 
 
-
 class Workouts(models.Model):
     name = models.CharField(max_length=100)
     calories = models.IntegerField()
@@ -19,6 +18,7 @@ class Workouts(models.Model):
 
     def __str__(self):
         return self.name
+
 
 
 
@@ -60,3 +60,13 @@ class Wishlist(models.Model):
     def __str__(self):
         return f"{self.user}'s wishlist"
 
+
+class Workouts(models.Model):
+    name = models.CharField(max_length=100)
+    calories = models.IntegerField()
+    category = models.CharField(max_length=100)
+    image = models.TextField(max_length=100)
+    wishlist = models.ManyToManyField(Wishlist)
+
+    def __str__(self):
+        return self.name
