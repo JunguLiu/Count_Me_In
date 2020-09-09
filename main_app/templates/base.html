@@ -1,12 +1,11 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>COUNT ME IN</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/bootstrap.css">
@@ -16,38 +15,85 @@
 
 </head>
 
-<body>
-  <header>
-    <a href="#" class="logo">cmi</a>
-    <div class="toggle" onclick="menuToggle()"></div>
-    <div class="menu-overlay">
-      <ul>
-        <li><a href="/">home</a></li>
-        <li><a href="#">register</a></li>
-        <li><a href="#">log in</a></li>
-        <li><a href="#">recommendation</a></li>
-        <li><a href="wishlists">wishlist</a></li>
-        <li><a href="plans">my plan</a></li>
-      </ul>
-    </div>
-  </header>
-  <div class="block"></div>
-  <main class="container">
-    {% block content %}
-    {% endblock %}
-  </main>
 
-  <!-- <footer class="page-footer">
-    <div class="right">All Rights Reserved, &copy; 2019 Count Me In &nbsp;</div>
-  </footer> -->
+<body>
+  <a href="#" class="logo">cmi</a>
+  <div class="toggle" onclick="menuToggle()"></div>
+  <div class="menu-overlay">
+    <ul>
+      {% if user.is_authenticated %}
+      <li><a href="#">home</a></li>
+      <li><a href="#">recommendation</a></li>
+      <li><a href="#">wishlist</a></li>
+      <li><a href="{% url 'index' %}">my plan</a></li>
+      <li><a href="{% url 'logout' %}">Log Out</a></li>
+      {% else %}
+      <li><a href="{% url 'login' %}">Log In</a></li>
+      <li><a href="{% url 'signup' %}">Sign Up</a></li>
+      {% endif %}
+    </ul>
+  </div>
+  <div class="block"></div>
+
+  <main class="container">{% block content %} {% endblock %}</main>
+
+  <footer class="page-footer">
+    <div class="right">
+      All Rights Reserved, &copy; 2019 Count Me In &nbsp;
+    </div>
+  </footer>
 
   <!-- nav page toggle class  -->
-  <script src="../static/js/navbar.js"></script>
+  <script type="text/javascript">
+    function menuToggle() {
+      var nav = document.querySelector(".menu-overlay");
+      nav.classList.toggle("menu-active");
+      var nav = document.querySelector(".toggle");
+      nav.classList.toggle("menu-active");
+    }
+  </script>
 
   <!-- MAIN PAGE ANIMATION  -->
-  <script src="../static/js/flashPage.js"></script>
+  <script type="text/javascript">
+    document
+      .querySelector(".section-herder")
+      .addEventListener("mousemove", function (e) {
+        const bg = document.querySelector(".bg");
+        const runner = document.querySelector(".runner");
+        const textContent = document.querySelector(".text-content");
+
+        bg.style.width = 100 + e.pageX / 100 + "%";
+        bg.style.height = 100 + e.pageX / 100 + "%";
+        runner.style.right = 100 + e.pageX / 2 + "px";
+        textContent.style.left = 200 + e.pageX / 2.5 + "px";
+      });
+  </script>
 
 
+  <!-- GALLERY SECTION FILTER -->
+  <script type="text/javascript">
+    $(".itemBox").on("click", function () {
+      $(this).toggleClass("show-description");
+    });
+    $(document).ready(function () {
+      $(".list").click(function () {
+        const value = $(this).attr("data-filter");
+        if (value == "all") {
+          $(".itemBox").show("1000");
+        } else {
+          $(".itemBox")
+            .not("." + value)
+            .hide("1000");
+          $(".itemBox")
+            .filter("." + value)
+            .show("1000");
+        }
+      });
+      $(".list").click(function () {
+        $(this).addClass("active").siblings().removeClass("active");
+      });
+    });
+  </script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>
@@ -57,9 +103,6 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
     crossorigin="anonymous"></script>
-
-  <script src="../static/js/images.js"></script>
-
 </body>
 
 </html>
