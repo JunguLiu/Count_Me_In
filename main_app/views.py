@@ -4,6 +4,21 @@ from django.views.generic import ListView, DetailView
 from .models import Plans, Workouts
 
 
+class PlanCreate(CreateView):
+    model = Plans
+    fields = "__all__"
+
+
+class PlanUpdate(UpdateView):
+    model = Plans
+    fields = "__all__"
+
+
+class PlanDelete(DeleteView):
+    model = Plans
+    success_url = '/plans/'
+
+
 def plans_index(request):
     plans = Plans.objects.all()
     return render(request, "plan/index.html", {"plans": plans})

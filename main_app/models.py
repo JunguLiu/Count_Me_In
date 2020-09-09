@@ -1,6 +1,5 @@
 from django.db import models
 from django.urls import reverse
-from datetime import date
 
 
 class Comments(models.Model):
@@ -22,11 +21,11 @@ class Workouts(models.Model):
 
 
 class Plans(models.Model):
-    name = models.CharField(max_length=100),
-    workouts = models.ManyToManyField(Workouts)
+    name = models.CharField(max_length=100)
     comments = models.ForeignKey(Comments, on_delete=models.CASCADE)
-    date = models.DateField
-    image = models.ImageField
+    # date = models.DateField()
+    # image = models.ImageField
+    # workouts = models.ManyToManyField(Workouts)
 
     def __str__(self):
         return self.name
