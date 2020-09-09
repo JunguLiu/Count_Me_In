@@ -1,7 +1,8 @@
 from django.db import models
 from django.urls import reverse
-from datetime import date
+# from datetime import date
 from django.contrib.auth.models import User
+
 
 class Workouts(models.Model):
     name = models.CharField(max_length=100)
@@ -13,29 +14,24 @@ class Workouts(models.Model):
         return self.name
 
 
-
 class Plans(models.Model):
     name = models.CharField(max_length=100)
     # date = models.DateField()
     image = models.ImageField(upload_to='plan_image', blank=True)
-
-
-    def __str__(self):
-        return self.name
-
-
-class Plans(models.Model):
-    name = models.CharField(max_length=100),
-    workouts = models.ManyToManyField(Workouts)
-    comments = models.ForeignKey(Comments, on_delete=models.CASCADE)
-    date = models.DateField
-    image = models.ImageField
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'plan_id': self.id})
+
+
+class Comments(models.Model):
+    name = models.CharField(max_length=100)
+    plans = models.ForeignKey(Plans, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
 
 
 class User(models.Model):
@@ -55,4 +51,3 @@ class Wishlist(models.Model):
 
     def __str__(self):
         return f"{self.user}'s wishlist"
-
