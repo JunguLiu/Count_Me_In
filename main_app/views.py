@@ -1,3 +1,8 @@
+from .models import Plans
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
@@ -25,13 +30,6 @@ class PlanDelete(DeleteView):
     model = Plans
     success_url = '/plans/'
 
-from .models import Plans
-from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-
-
 
 def plans_index(request):
     plans = Plans.objects.all()
@@ -42,6 +40,21 @@ def plans_detail(request, plan_id):
     plan = Plans.objects.get(id=plan_id)
     wishlist = Wishlist.objects.filter(plans=plan_id)
     wishlist_all = Wishlist.objects.all()
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        # need a unique "key" for S3 / needs image file extension too
+        key = uuid.uuid4().hex[:6] + \
+            photo_file.name[photo_file.name.rfind('.'):]
+        # just in case something goes wrong
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            # build the full url string
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+            photo = Plans(url=url)
+            photo.save()
+        except:
+            print('An error occurred uploading file to S3')
     workouts_not_in_plan = Wishlist.objects.exclude(
         id__in=wishlist.values_list('id'))
 
@@ -56,7 +69,6 @@ def plans_create(request):
 
 def main_page(request):
     return render(request, "main-page.html")
-
 
 
 def assoc_wishlist(request, plan_id, wishlist_id):
@@ -77,6 +89,7 @@ def wishlists_index(request):
 def show_main(request):
     return render(request, "main-page.html")
 
+
 def signup(request):
     error_message = ''
     if request.method == 'POST':
@@ -90,4 +103,3 @@ def signup(request):
     form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
-
