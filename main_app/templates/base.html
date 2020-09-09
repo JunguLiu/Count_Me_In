@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +11,7 @@
   <link rel="stylesheet" href="../../public/stylesheets/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 
 <body>
@@ -34,11 +33,9 @@
     {% block content %}
     {% endblock %}
   </main>
-
   <footer class="page-footer">
     <div class="right">All Rights Reserved, &copy; 2019 Count Me In &nbsp;</div>
   </footer>
-
   <!-- nav page toggle class  -->
   <script type="text/javascript">
     function menuToggle() {
@@ -48,22 +45,18 @@
       nav.classList.toggle('menu-active');
     }
   </script>
-
-
   <!-- MAIN PAGE ANIMATION  -->
   <script type="text/javascript">
     document.querySelector('.section-herder').addEventListener("mousemove", function (e) {
       const bg = document.querySelector('.bg');
       const runner = document.querySelector('.runner');
       const textContent = document.querySelector('.text-content');
-
       bg.style.width = 100 + e.pageX / 100 + '%';
       bg.style.height = 100 + e.pageX / 100 + '%';
       runner.style.right = 100 + e.pageX / 2 + 'px';
       textContent.style.left = 200 + e.pageX / 2.5 + 'px';
     })
   </script>
-
   <!-- GALLERY SECTION FILTER -->
   <script type="text/javascript">
     $('.itemBox').on('click', function () {
@@ -82,7 +75,6 @@
       $('.list').click(function () {
         $(this).addClass('active').siblings().removeClass('active');
       })
-
     })
   </script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -94,7 +86,6 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
     crossorigin="anonymous"></script>
-
 </body>
 
 </html>

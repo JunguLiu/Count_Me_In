@@ -14,4 +14,47 @@
   </div>
 </div>
 
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ plan.name }} plan's workouts</h3>
+    {% if plan.wishlist.count %}
+    {% for wish in plan.wishlist.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">
+          A {{ wish.name }}
+        </span>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h5>No Workouts :(</h5>
+    {% endif %}
+  </div>
+  <!-- Available toys will come after this line -->
+  <div class="col s6">
+    <h3>your saved workouts</h3>
+    {% if wishlist.count %}
+    {% for wish in wishlist.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">
+          {{ wish.name }}
+        </span>
+      </div>
+      <div class="card-action">
+        <form action="{% url 'assoc_wishlist' olan.id wish.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn">Add</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+
+
+
+</div>
 {% endblock %}
