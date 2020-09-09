@@ -17,7 +17,7 @@ body {
 
 /* ******************          SECTION HEADER         ****************** */
 
-.section-herder {
+.section-header {
     position        : relative;
     width           : 100%;
     height          : 100vh;
@@ -30,7 +30,6 @@ body {
 }
 
 header {
-    display        : block;
     position       : absolute;
     TOP            : 0;
     left           : 0;

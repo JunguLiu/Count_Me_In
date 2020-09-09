@@ -12,4 +12,8 @@ urlpatterns = [
     path('workouts/<int:workout_id>/', views.workouts_detail, name='workout_detail'),
     # wishlist
     path('wishlists/', views.wishlists_index, name='wishlists_index'),
+
+    path('', views.show_main, name='show_main'),
+
+
 ]

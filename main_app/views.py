@@ -3,6 +3,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Plans, Workouts
 
+def show_main(request):
+    return render(request, "main-page.html")
 
 class PlanCreate(CreateView):
     model = Plans
