@@ -2,18 +2,19 @@ from django.db import models
 from django.urls import reverse
 
 
-class Workouts(models.Model):
+class Comments(models.Model):
     name = models.CharField(max_length=100)
-    calories = models.IntegerField()
-    category = models.CharField(max_length=100)
-    image = models.TextField(max_length=100)
 
     def __str__(self):
         return self.name
 
 
-class Comments(models.Model):
+class Workouts(models.Model):
     name = models.CharField(max_length=100)
+    calories = models.IntegerField()
+    category = models.CharField(max_length=100)
+    image = models.TextField(max_length=100)
+    #wishlist = models.ForeignKey(Wishlist, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -42,3 +43,11 @@ class User(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Wishlist(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user}'s wishlist"
+
