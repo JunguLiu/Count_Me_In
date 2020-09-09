@@ -9,11 +9,12 @@ urlpatterns = [
     path('plans/<int:pk>/delete/', views.PlanDelete.as_view(), name='plans_delete'),
     path('plans/newPlans/', views.plans_create, name='create'),
     # detail
-    path('workouts/<int:workout_id>/', views.workouts_detail, name='workout_detail'),
+    path('workouts/<int:workout_id>/',
+         views.workouts_detail, name='workout_detail'),
     # wishlist
     path('wishlists/', views.wishlists_index, name='wishlists_index'),
 
+    # main page route
     path('', views.show_main, name='show_main'),
-
 
 ]

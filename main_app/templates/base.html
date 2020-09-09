@@ -9,10 +9,11 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>COUNT ME IN</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../public/stylesheets/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/css/bootstrap.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 </head>
 
 <body>
@@ -21,15 +22,16 @@
     <div class="toggle" onclick="menuToggle()"></div>
     <div class="menu-overlay">
       <ul>
-        <li><a href="#">home</a></li>
+        <li><a href="/">home</a></li>
         <li><a href="#">register</a></li>
         <li><a href="#">log in</a></li>
         <li><a href="#">recommendation</a></li>
-        <li><a href="#">wishlist</a></li>
-        <li><a href="/plans">my plan</a></li>
+        <li><a href="wishlists">wishlist</a></li>
+        <li><a href="plans">my plan</a></li>
       </ul>
     </div>
   </header>
+  <div class="block"></div>
   <main class="container">
     {% block content %}
     {% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Wishlist</h1>
+
+{% for wishlist in wishlists %}
+
+<div class="workouts">
+    <div class="itemBox"><img src="../../static/img/workout-boxing.jpg" alt="">
+        <p class="workout-p">Boxing<br />
+            <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
+            </small>
+        </p>
+    </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}
