@@ -17,7 +17,7 @@ class Workouts(models.Model):
 class Plans(models.Model):
     name = models.CharField(max_length=100)
     # date = models.DateField()
-    image = models.ImageField(upload_to='plan_image', blank=True)
+    url = models.ImageField(upload_to='plan_image', blank=True)
 
     def __str__(self):
         return self.name
