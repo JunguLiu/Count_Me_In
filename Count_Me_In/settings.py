@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'CMI',
         'USER': 'postgres',
-        'PASSWORD': 'password',
+        'PASSWORD': '2371',
     }
 }
 

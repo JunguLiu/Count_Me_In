@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Plans
+from django.views.generic import ListView, DetailView
+from .models import Plans, Workouts
 
 
 class PlanCreate(CreateView):
@@ -34,3 +35,11 @@ def plans_create(request):
 
 def main_page(request):
     return render(request, "main-page.html")
+
+
+def workouts_detail(request, workout_id):
+    workout = Workouts.objects.get(id=workout_id)
+    return render(request, "workout_detail/workout_detail.html", {"workout": workout})
+
+def wishlists_index(request):
+    return render(request, "wishlist.html")
