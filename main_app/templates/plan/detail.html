@@ -1,7 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<h1>{{ plan.name }} Details</h1>
 
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ plan.name }}</span>
+
+  </div>
+  <div class="card-action">
+    <a href="{% url 'plans_update' plan.id %}">Edit</a>
+    <a href="{% url 'plans_delete' plan.id %}">Delete</a>
+  </div>
+</div>
 
 <hr>
 <div class="row">
@@ -46,5 +57,4 @@
 
 
 </div>
-
 {% endblock %}
