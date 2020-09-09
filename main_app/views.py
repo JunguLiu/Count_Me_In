@@ -28,10 +28,14 @@ def plans_index(request):
 
 def plans_detail(request, plan_id):
     plan = Plans.objects.get(id=plan_id)
-    wishlist = Wishlist.objects.all()
+    wishlist = Wishlist.objects.filter(plans=plan_id)
+    wishlist_all = Wishlist.objects.all()
+    workouts_not_in_plan = Wishlist.objects.exclude(
+        id__in=wishlist.values_list('id'))
+
     # wishlists_plan_doesnt_have = Wishlist.objects.exclude(
     # id__in = plan.wishlist.all().values_list('id'))
-    return render(request, "plan/detail.html", {"plan": plan, "wishlist": wishlist})
+    return render(request, "plan/detail.html", {"plan": plan, "wishlist": wishlist, "wishlists": workouts_not_in_plan})
 
 
 def plans_create(request):
