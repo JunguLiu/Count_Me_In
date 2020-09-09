@@ -21,7 +21,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='plans',
             name='comments',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='main_app.Comments'),
+            field=models.ForeignKey(
+                default=1, on_delete=django.db.models.deletion.CASCADE, to='main_app.Comments'),
             preserve_default=False,
         ),
         migrations.AddField(
@@ -56,12 +57,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='User',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
                 ('weight', models.IntegerField()),
                 ('goalWeight', models.IntegerField()),
                 ('age', models.IntegerField()),
-                ('plans', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main_app.Plans')),
+                ('plans', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='main_app.Plans')),
             ],
         ),
     ]

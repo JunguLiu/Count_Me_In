@@ -5,3 +5,6 @@ admin.site.register(Plans)
 admin.site.register(User)
 admin.site.register(Comments)
 admin.site.register(Workouts)
+
+admin.site.register(Wishlist)
+

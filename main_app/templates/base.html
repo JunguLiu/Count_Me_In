@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,7 +23,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </head>
 
+
   <body>
+
     <a href="#" class="logo">cmi</a>
     <div class="toggle" onclick="menuToggle()"></div>
     <div class="menu-overlay">
@@ -41,6 +42,8 @@
         {% endif %}
       </ul>
     </div>
+
+
 
     <main class="container">{% block content %} {% endblock %}</main>
 
@@ -75,6 +78,7 @@
           textContent.style.left = 200 + e.pageX / 2.5 + "px";
         });
     </script>
+
 
     <!-- GALLERY SECTION FILTER -->
     <script type="text/javascript">

@@ -3,7 +3,6 @@ from django.urls import reverse
 from datetime import date
 from django.contrib.auth.models import User
 
-
 class Workouts(models.Model):
     name = models.CharField(max_length=100)
     calories = models.IntegerField()
@@ -14,8 +13,12 @@ class Workouts(models.Model):
         return self.name
 
 
-class Comments(models.Model):
+
+class Plans(models.Model):
     name = models.CharField(max_length=100)
+    # date = models.DateField()
+    image = models.ImageField(upload_to='plan_image', blank=True)
+
 
     def __str__(self):
         return self.name
@@ -44,3 +47,12 @@ class User(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Wishlist(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    plans = models.ManyToManyField(Plans)
+
+    def __str__(self):
+        return f"{self.user}'s wishlist"
+
