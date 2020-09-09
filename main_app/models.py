@@ -9,6 +9,7 @@ class Comments(models.Model):
         return self.name
 
 
+
 class Workouts(models.Model):
     name = models.CharField(max_length=100)
     calories = models.IntegerField()
@@ -20,9 +21,9 @@ class Workouts(models.Model):
         return self.name
 
 
+
 class Plans(models.Model):
     name = models.CharField(max_length=100)
-    comments = models.ForeignKey(Comments, on_delete=models.CASCADE)
     # date = models.DateField()
     # image = models.ImageField
     # workouts = models.ManyToManyField(Workouts)
@@ -32,6 +33,14 @@ class Plans(models.Model):
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'plan_id': self.id})
+
+
+class Comments(models.Model):
+    name = models.CharField(max_length=100)
+    plans = models.ForeignKey(Plans, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
 
 
 class User(models.Model):
