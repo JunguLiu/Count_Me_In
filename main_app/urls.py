@@ -11,6 +11,7 @@ urlpatterns = [
     path('plans/newPlans/', views.plans_create, name='create'),
     path('plans/<int:plan_id>/assoc_wishlist/<int:wishlist_id>/',
          views.assoc_wishlist, name='assoc_wishlist'),
+    # path('plans/<int:plan_id>/add_photo/', views.add_photo, name='add_photo'),
     # detail
     path('workouts/<int:workout_id>/',
          views.workouts_detail, name='workout_detail'),

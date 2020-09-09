@@ -2,7 +2,11 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Plans, Workouts, Wishlist
+import uuid
+import boto3
 
+S3_BASE_URL = "https://s3.us-east-1.amazonaws.com/"
+BUCKET = 'countmeincmi'
 # plans
 
 
