@@ -6,7 +6,7 @@ from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-from .models import Plans, Workouts, Wishlist, Photo
+from .models import Plans, Workouts, Wishlist, Photo, FriendRequest, Friends
 
 import uuid
 import boto3
@@ -166,4 +166,7 @@ def add_to_plan(request, workout_id, plan_id):
 
 
 def friends(request):
-    return render(request, "friends/friends.html")
+    print(request.user.id)
+    friends = Friends.objects.get(user1=request.user.id)
+    friends_request = FriendRequest.objects.get(to_user_id=request.user.id)
+    return render(request, "friends/friends.html", {"friends": friends, "friends_request": friends_request})
