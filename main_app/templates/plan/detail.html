@@ -18,16 +18,16 @@
 <div class="row">
   <div class="col s6">
     <h3>{{ plan.name }} plan's workouts</h3>
-    {% if plan.wishlists.count %}
-    {% for wishlist in  plan.wishlists.all %}
+    {% if plan.workout.count %}
+    {% for workout in  workouts %}
     <div class="card">
       <div class="card-content">
         <span class="card-title">
-          {{ wishlist.name }}
+          {{ workout.name }}
         </span>
       </div>
       <div class="card-action">
-        <form action="#" method="post">
+        <form action="{% url 'unassoc_workout' plan.id workout.id %}" method="post">
           {% csrf_token %}
           <button type="submit" class="btn">Remove</button>
         </form>
@@ -41,15 +41,15 @@
   <div class="col s6">
     <h3>your saved workouts</h3>
     {% if wishlists.count %}
-    {% for wishlist in wishlists.all %}
+    {% for workout in wishlists.all %}
     <div class="card">
       <div class="card-content">
         <span class="card-title">
-          {{ wishlists.name }}
+          {{ workout.name }}
         </span>
       </div>
       <div class="card-action">
-        <form action="{% url 'assoc_wishlist_to_plan' plan.id wish.id %}" method="post">
+        <form action="{% url 'assoc_wishlist_to_plan' plan.id workout.id%}" method="post">
           {% csrf_token %}
           <button type="submit" class="btn">Add</button>
         </form>

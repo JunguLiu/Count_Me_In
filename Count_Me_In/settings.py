@@ -47,6 +47,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # 'login_required.middleware.LoginRequiredMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -128,3 +129,17 @@ LOGIN_REDIRECT_URL = '/plans/'
 
 # Add this variable to specify where logging out redirects to
 LOGOUT_REDIRECT_URL = '/plans'
+
+# LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
+#     # 'index',
+#     'detail',
+#     'plans_create',
+#     'plans_update',
+#     'plans_delete',
+#     'assoc_wishlist_to_plan',
+#     'add_photo',
+#     'unassoc_workout',
+#     'assoc_wishlist',
+#     'wishlist_to_plan',
+#     'add_to_plan',
+# ]

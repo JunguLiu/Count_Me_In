@@ -47,9 +47,19 @@
     </div>
     <div class="block"></div>
 
-    <main class="row d-flex justify-content-center">
-      {% block content %} {% endblock %}
-    </main>
+
+      <li><a href="#">recommendation</a></li>
+      <li><a href="{% url 'show_main' %}">wishlist</a></li>
+      <li><a href="{% url 'index' %}">my plan</a></li>
+      <li><a href="{% url 'logout' %}">Log Out</a></li>
+      {% else %}
+      <li><a href="{% url 'login' %}">Log In</a></li>
+      <li><a href="{% url 'signup' %}">Sign Up</a></li>
+      {% endif %}
+    </ul>
+  </div>
+  <div class="block"></div>
+
 
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

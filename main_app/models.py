@@ -11,13 +11,13 @@ class Workouts(models.Model):
     category = models.CharField(max_length=100)
     image = models.TextField(max_length=100)
 
-    # def __str__(self):
-    #     return self.name
+    def __str__(self):
+        return self.name
 
 
 class Plans(models.Model):
     name = models.CharField(max_length=100)
-    url = models.ImageField(upload_to='plan_image', blank=True)
+    url = models.ImageField("image", upload_to='plan_image', blank=True)
     wishlists = models.ManyToManyField("Wishlist")
     workout = models.ManyToManyField(Workouts)
 
@@ -36,20 +36,20 @@ class Comments(models.Model):
         return self.name
 
 
-class User(models.Model):
-    name = models.CharField(max_length=100)
-    weight = models.IntegerField()
-    goalWeight = models.IntegerField()
-    age = models.IntegerField()
-    plans = models.ForeignKey(Plans, on_delete=models.CASCADE)
+# class User(models.Model):
+#     name = models.CharField(max_length=100)
+#     weight = models.IntegerField()
+#     goalWeight = models.IntegerField()
+#     age = models.IntegerField()
+#     plans = models.ForeignKey(Plans, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 
 class Wishlist(models.Model):
-    # user = models.OneToOneField(
-    #     User, on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, primary_key=True)
     name = models.CharField(max_length=100)
     workout = models.ManyToManyField(Workouts)
 
