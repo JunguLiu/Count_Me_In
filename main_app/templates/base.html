@@ -23,8 +23,9 @@
     <ul>
       {% if user.is_authenticated %}
       <li><a href="{% url 'show_main' %}">home</a></li>
+
       <li><a href="#">recommendation</a></li>
-      <li><a href="#">wishlist</a></li>
+      <li><a href="/wishlist">wishlist</a></li>
       <li><a href="{% url 'index' %}">my plan</a></li>
       <li><a href="{% url 'logout' %}">Log Out</a></li>
       {% else %}
@@ -35,7 +36,10 @@
   </div>
   <div class="block"></div>
 
-  <main class="container">{% block content %} {% endblock %}</main>
+  <main class="container">
+    {% block content %}
+    {% endblock %}
+  </main>
 
   <footer class="page-footer">
     <div class="right">
@@ -43,57 +47,8 @@
     </div>
   </footer>
 
-  <!-- nav page toggle class  -->
-  <script type="text/javascript">
-    function menuToggle() {
-      var nav = document.querySelector(".menu-overlay");
-      nav.classList.toggle("menu-active");
-      var nav = document.querySelector(".toggle");
-      nav.classList.toggle("menu-active");
-    }
-  </script>
-
-  <!-- MAIN PAGE ANIMATION  -->
-  <script type="text/javascript">
-    document
-      .querySelector(".section-herder")
-      .addEventListener("mousemove", function (e) {
-        const bg = document.querySelector(".bg");
-        const runner = document.querySelector(".runner");
-        const textContent = document.querySelector(".text-content");
-
-        bg.style.width = 100 + e.pageX / 100 + "%";
-        bg.style.height = 100 + e.pageX / 100 + "%";
-        runner.style.right = 100 + e.pageX / 2 + "px";
-        textContent.style.left = 200 + e.pageX / 2.5 + "px";
-      });
-  </script>
 
 
-  <!-- GALLERY SECTION FILTER -->
-  <script type="text/javascript">
-    $(".itemBox").on("click", function () {
-      $(this).toggleClass("show-description");
-    });
-    $(document).ready(function () {
-      $(".list").click(function () {
-        const value = $(this).attr("data-filter");
-        if (value == "all") {
-          $(".itemBox").show("1000");
-        } else {
-          $(".itemBox")
-            .not("." + value)
-            .hide("1000");
-          $(".itemBox")
-            .filter("." + value)
-            .show("1000");
-        }
-      });
-      $(".list").click(function () {
-        $(this).addClass("active").siblings().removeClass("active");
-      });
-    });
-  </script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>
@@ -103,6 +58,14 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
     crossorigin="anonymous"></script>
+  <!-- nav page toggle class  -->
+  <script src="../static/js/navbar.js"></script>
+
+  <!-- MAIN PAGE ANIMATION  -->
+  <script src="../static/js/flashPage.js"></script>
+
+  <!-- GALLERY SECTION FILTER -->
+  <script src="../static/js/images.js"></script>
 </body>
 
 </html>
