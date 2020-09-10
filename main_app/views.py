@@ -139,6 +139,8 @@ def add_to_plan(request, workout_id, plan_id, wishlist_id):
     print(plan_id)
     print(workout_id)
     plan1 = Plans.objects.get(id=plan_id).workout.add(workout_id)
+    workout = Workouts.objects.get(id=workout_id)
     # Cat.objects.get(id=cat_id).toys.add(toy_id)
     print(plan1)
+    print(workout)
     return redirect('detail', plan_id=plan_id)
