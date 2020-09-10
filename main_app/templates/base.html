@@ -47,7 +47,7 @@
     </div>
     <div class="block"></div>
 
-
+      {% if user.is_authenticated %}
       <li><a href="#">recommendation</a></li>
       <li><a href="{% url 'show_main' %}">wishlist</a></li>
       <li><a href="{% url 'index' %}">my plan</a></li>
