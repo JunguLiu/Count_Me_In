@@ -124,7 +124,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/plans/'
+LOGIN_REDIRECT_URL = '/'
 
 # Add this variable to specify where logging out redirects to
-LOGOUT_REDIRECT_URL = '/plans'
+LOGOUT_REDIRECT_URL = '/'
