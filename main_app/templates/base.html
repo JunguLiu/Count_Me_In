@@ -26,8 +26,9 @@
       <li><a href="{% url 'show_main' %}">home</a></li>
 
       <li><a href="#">recommendation</a></li>
-      <li><a href="{% url 'show_main' %}">wishlist</a></li>
+      <li><a href="/wishlist">wishlist</a></li>
       <li><a href="{% url 'index' %}">my plan</a></li>
+      <li><a href="{% url 'friends' %}">My Friends</a></li>
       <li><a href="{% url 'logout' %}">Log Out</a></li>
       {% else %}
       <li><a href="{% url 'login' %}">Log In</a></li>
@@ -37,6 +38,8 @@
   </div>
   <div class="block"></div>
 
+  {% block content %}
+  {% endblock %}
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
