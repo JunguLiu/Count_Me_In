@@ -32,4 +32,8 @@ urlpatterns = [
     # login...
     path('accounts/signup/', views.signup, name='signup'),
 
+
+    # friends
+    path('friends/', views.friends, name='friends')
+
 ]
