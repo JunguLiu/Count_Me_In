@@ -10,7 +10,7 @@
         <td>{{workout.calories}}</td>
     </tr>
     <div class="card-action">
-        <form action="{% url 'wishlist_to_plan' workout.id  %}" method="POST">
+        <form action="{% url 'wishlist_to_plan' workout.id wishlist_id %}" method="POST">
             {% csrf_token %}
             <button type="submit" class="btn">Add</button>
         </form>
