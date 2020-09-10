@@ -37,29 +37,12 @@ def plans_index(request):
 
 def plans_detail(request, plan_id):
     plan = Plans.objects.get(id=plan_id)
-    wishlist = Wishlist.objects.filter(plans=plan_id)
-    wishlist_all = Wishlist.objects.all()
-    photo_file = request.FILES.get('photo-file', None)
-    if photo_file:
-        s3 = boto3.client('s3')
-        # need a unique "key" for S3 / needs image file extension too
-        key = uuid.uuid4().hex[:6] + \
-            photo_file.name[photo_file.name.rfind('.'):]
-        # just in case something goes wrong
-        try:
-            s3.upload_fileobj(photo_file, BUCKET, key)
-            # build the full url string
-            url = f"{S3_BASE_URL}{BUCKET}/{key}"
-            photo = Plans(url=url)
-            photo.save()
-        except:
-            print('An error occurred uploading file to S3')
+    print("***********")
+    print(plan)
     workouts_not_in_plan = Wishlist.objects.exclude(
-        id__in=wishlist.values_list('id'))
-
-    # wishlists_plan_doesnt_have = Wishlist.objects.exclude(
-    # id__in = plan.wishlist.all().values_list('id'))
-    return render(request, "plan/detail.html", {"plan": plan, "wishlist": wishlist, "wishlists": workouts_not_in_plan})
+        id__in=plan.wishlists.all().values_list('id'))
+    print("*****HERE******")
+    return render(request, "plan/detail.html", {"plan": plan, "wishlists": workouts_not_in_plan})
 
 
 def plans_create(request):
@@ -70,20 +53,9 @@ def main_page(request):
     return render(request, "main-page.html")
 
 
-def assoc_wishlist(request, plan_id, wishlist_id):
+def assoc_wishlist_to_plan(request, plan_id, wishlist_id):
     Plans.objects.get(id=plan_id).wishlist.add(wishlist_id)
     return redirect('detail', plan_id=plan_id)
-
-
-# workouts
-def workouts_detail(request, workout_id):
-    workout = Workouts.objects.get(id=workout_id)
-    return render(request, "workout_detail/workout_detail.html", {"workout": workout})
-
-
-def wishlists_index(request):
-    wishlists = Wishlist.objects.all()
-    return render(request, "wishlist/wishlist.html", {"wishlists": wishlists})
 
 
 def show_main(request):
@@ -103,3 +75,41 @@ def signup(request):
     form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
+
+# workouts
+
+
+def workouts_detail(request, workout_id):
+    workout = Workouts.objects.get(id=workout_id)
+    wishlist = Wishlist.objects.all()
+    print("_____________________")
+    return render(request, "workout_detail/workout_detail.html", {"workout": workout, "wishlist": wishlist})
+
+# wishlist
+
+
+def wishlists_index(request, wishlist_id):
+    wishlists = Wishlist.objects.get(id=wishlist_id).workouts_set.all()
+    return render(request, "wishlist/wishlist.html", {"wishlists": wishlists})
+
+
+def assoc_wishlist(request, workout_id, wishlist_id):
+    # Note that you can pass a toy's id instead of the whole object
+    Workouts.objects.get(id=workout_id).wishlists.add(wishlist_id)
+    return redirect('wishlists_index', wishlist_id=wishlist_id)
+
+
+def wishlist_to_plan(request, workout_id):
+    print("*****HERE222******")
+    print(workout_id)
+
+    plans = Plans.objects.all()
+    return render(request, "plan/new_workout.html", {"plans": plans, "workout_id": workout_id})
+
+
+def add_to_plan(request, workout_id, plan_id):
+    print("*****HERE222******")
+    print(plan_id)
+    print(workout_id)
+    Plans.objects.get(id=plan_id).wishlists.add(workout_id)
+    return redirect('detail', plan_id=plan_id)

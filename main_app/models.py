@@ -5,20 +5,10 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 
-class Workouts(models.Model):
-    name = models.CharField(max_length=100)
-    calories = models.IntegerField()
-    category = models.CharField(max_length=100)
-    image = models.TextField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-
 class Plans(models.Model):
     name = models.CharField(max_length=100)
-    # date = models.DateField()
     url = models.ImageField(upload_to='plan_image', blank=True)
+    wishlists = models.ManyToManyField("Wishlist")
 
     def __str__(self):
         return self.name
@@ -47,13 +37,19 @@ class User(models.Model):
 
 
 class Wishlist(models.Model):
-    user = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        primary_key=True,
-    )
-    workouts = models.ManyToManyField(Workouts)
-    plans = models.ManyToManyField(Plans)
+    # user = models.OneToOneField(
+    #     User, on_delete=models.CASCADE, primary_key=True)
+    name = models.CharField(max_length=100)
+    # def __str__(self):
+    #     return f"{self.user}'s wishlist"
+
+
+class Workouts(models.Model):
+    name = models.CharField(max_length=100)
+    calories = models.IntegerField()
+    category = models.CharField(max_length=100)
+    image = models.TextField(max_length=100)
+    wishlists = models.ManyToManyField(Wishlist)
 
     def __str__(self):
-        return f"{self.user}'s wishlist"
+        return self.name

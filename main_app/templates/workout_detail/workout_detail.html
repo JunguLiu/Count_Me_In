@@ -24,14 +24,18 @@
                 </div>
                 <hr>
                 <div class="form-container">
+                    {% if workout.wishlists.count %}
+                    {% for wishlist in workout.wishlists.all %}
                     <form action="" method="post">
                         {% csrf_token %}
                         <input type="submit" class="btn btn-round btn-danger" value="Add to PLAN">
                     </form>
-                    <form action="" method="post">
+                    <form action="{% url 'assoc_wishlist' workout.id wishlist.id %}" method="POST">
                         {% csrf_token %}
                         <input type="submit" class="btn btn-round btn-danger" value="Add to WISHLIST">
                     </form>
+                    {% endfor %}
+                    {% endif %}
                 </div>
 
             </div>
