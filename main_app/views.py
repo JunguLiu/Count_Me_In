@@ -90,7 +90,12 @@ def workouts_detail(request, workout_id):
 
 def wishlists_index(request, wishlist_id):
     wishlists = Wishlist.objects.get(id=wishlist_id).workouts_set.all()
-    return render(request, "wishlist/wishlist.html", {"wishlists": wishlists})
+    print("*****here******")
+    print(wishlist_id)
+    for workouts in wishlists:
+        print(workouts.id)
+
+    return render(request, "wishlist/wishlist.html", {"wishlists": wishlists, "wishlist_id": wishlist_id})
 
 
 def assoc_wishlist(request, workout_id, wishlist_id):
@@ -99,17 +104,18 @@ def assoc_wishlist(request, workout_id, wishlist_id):
     return redirect('wishlists_index', wishlist_id=wishlist_id)
 
 
-def wishlist_to_plan(request, workout_id):
+def wishlist_to_plan(request, workout_id, wishlist_id):
     print("*****HERE222******")
-    print(workout_id)
-
     plans = Plans.objects.all()
-    return render(request, "plan/new_workout.html", {"plans": plans, "workout_id": workout_id})
+    return render(request, "plan/new_workout.html", {"plans": plans, "workout_id": workout_id, "wishlist_id": wishlist_id})
 
 
-def add_to_plan(request, workout_id, plan_id):
-    print("*****HERE222******")
+def add_to_plan(request, workout_id, plan_id, wishlist_id):
+    print("*****HERE3333******")
     print(plan_id)
     print(workout_id)
-    Plans.objects.get(id=plan_id).wishlists.add(workout_id)
+    num = Workouts.wishlists.through.objects.filter(workouts_id=workout_id)
+    # wishlists = Wishlist.objects.get(id=wishlist_id).add(workout_id)
+    print(num)
+    # Plans.objects.get(id=plan_id).wishlists.add(wishlists)
     return redirect('detail', plan_id=plan_id)

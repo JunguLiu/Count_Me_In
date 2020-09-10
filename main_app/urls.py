@@ -19,9 +19,9 @@ urlpatterns = [
          views.wishlists_index, name='wishlists_index'),
     path('wishlists/<int:workout_id>/assoc_wishlist/<int:wishlist_id>/',
          views.assoc_wishlist, name='assoc_wishlist'),
-    path('wishlists/<int:workout_id>/plans',
+    path('wishlists/<int:workout_id>/plans/<int:wishlist_id>/',
          views.wishlist_to_plan, name="wishlist_to_plan"),
-    path('wishlists/<int:workout_id>/plans/<int:plan_id>/',
+    path('wishlists/<int:workout_id>/plans/<int:plan_id>/<int:wishlist_id>/',
          views.add_to_plan, name="add_to_plan"),
 
 
