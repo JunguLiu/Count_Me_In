@@ -3,8 +3,21 @@
 
 <h1>Wishlist</h1>
 
-{% for wishlist in wishlists %}
-
+<tbody>
+    {% for workout in wishlists %}
+    <tr>
+        <td>{{workout.name}}</td>
+        <td>{{workout.calories}}</td>
+    </tr>
+    <div class="card-action">
+        <form action="{% url 'wishlist_to_plan' workout.id  %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn">Add</button>
+        </form>
+    </div>
+    </br>
+    {% endfor %}
+</tbody>
 <div class="workouts">
     <div class="itemBox"><img src="../../static/img/workout-boxing.jpg" alt="">
         <p class="workout-p">Boxing<br />
@@ -13,7 +26,5 @@
         </p>
     </div>
 </div>
-
-{% endfor %}
 
 {% endblock %}

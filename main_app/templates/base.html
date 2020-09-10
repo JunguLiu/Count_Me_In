@@ -22,7 +22,8 @@
   <div class="menu-overlay">
     <ul>
       {% if user.is_authenticated %}
-      <li><a href="/">home</a></li>
+      <li><a href="{% url 'show_main' %}">home</a></li>
+
       <li><a href="#">recommendation</a></li>
       <li><a href="/wishlist">wishlist</a></li>
       <li><a href="{% url 'index' %}">my plan</a></li>
