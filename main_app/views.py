@@ -6,7 +6,7 @@ from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-from .models import Plans, Workouts, Wishlist
+from .models import Plans, Workouts, Wishlist, Photo
 import uuid
 import boto3
 
@@ -39,6 +39,7 @@ def plans_detail(request, plan_id):
     plan = Plans.objects.get(id=plan_id)
     print("***********")
     print(plan)
+    print(plan.workout)
     workouts_not_in_plan = Wishlist.objects.exclude(
         id__in=plan.wishlists.all().values_list('id'))
     print("*****HERE******")
@@ -56,6 +57,30 @@ def main_page(request):
 def assoc_wishlist_to_plan(request, plan_id, wishlist_id):
     Plans.objects.get(id=plan_id).wishlist.add(wishlist_id)
     return redirect('detail', plan_id=plan_id)
+
+
+def add_photo(request, plan_id):
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        print("here***************")
+        print(photo_file)
+        print(plan_id)
+
+        s3 = boto3.client('s3')
+        key = uuid.uuid4().hex[:6]+photo_file.name[photo_file.name.rfind('.'):]
+        try:
+            print("here***************")
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+            photo = Photo(url=url, plan_id=plan_id)
+            photo.save()
+            print(photo)
+
+        except:
+            print('An error occurred uploading file to S3')
+    return redirect('detail', plan_id=plan_id)
+
+# main page
 
 
 def show_main(request):
@@ -89,18 +114,17 @@ def workouts_detail(request, workout_id):
 
 
 def wishlists_index(request, wishlist_id):
-    wishlists = Wishlist.objects.get(id=wishlist_id).workouts_set.all()
+    # wishlists = Wishlist.objects.get(id=wishlist_id).workouts_set.all()
     print("*****here******")
-    print(wishlist_id)
-    for workouts in wishlists:
-        print(workouts.id)
-
+    wishlists = Wishlist.objects.get(id=wishlist_id).workout.all()
+    print(wishlists)
     return render(request, "wishlist/wishlist.html", {"wishlists": wishlists, "wishlist_id": wishlist_id})
 
 
 def assoc_wishlist(request, workout_id, wishlist_id):
     # Note that you can pass a toy's id instead of the whole object
-    Workouts.objects.get(id=workout_id).wishlists.add(wishlist_id)
+    # Workouts.objects.get(id=workout_id).wishlists.add(wishlist_id)
+    Wishlist.objects.get(id=wishlist_id).workout.add(workout_id)
     return redirect('wishlists_index', wishlist_id=wishlist_id)
 
 
@@ -114,8 +138,7 @@ def add_to_plan(request, workout_id, plan_id, wishlist_id):
     print("*****HERE3333******")
     print(plan_id)
     print(workout_id)
-    num = Workouts.wishlists.through.objects.filter(workouts_id=workout_id)
-    # wishlists = Wishlist.objects.get(id=wishlist_id).add(workout_id)
-    print(num)
-    # Plans.objects.get(id=plan_id).wishlists.add(wishlists)
+    plan1 = Plans.objects.get(id=plan_id).workout.add(workout_id)
+    # Cat.objects.get(id=cat_id).toys.add(toy_id)
+    print(plan1)
     return redirect('detail', plan_id=plan_id)

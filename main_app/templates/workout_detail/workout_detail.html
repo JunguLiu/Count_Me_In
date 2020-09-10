@@ -24,8 +24,8 @@
                 </div>
                 <hr>
                 <div class="form-container">
-                    {% if workout.wishlists.count %}
-                    {% for wishlist in workout.wishlists.all %}
+                    {% if wishlists.workout.count %}
+                    {% for workout in wishlists.workout.all %}
                     <form action="" method="post">
                         {% csrf_token %}
                         <input type="submit" class="btn btn-round btn-danger" value="Add to PLAN">
