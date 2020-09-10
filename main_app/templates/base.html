@@ -8,17 +8,18 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>COUNT ME IN</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../static/css/bootstrap.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
 </head>
 
-
 <body>
-  <a href="#" class="logo">cmi</a>
-  <div class="toggle" onclick="menuToggle()"></div>
+  <div class="header">
+    <a href="#" class="logo">cmi</a>
+    <div class="toggle" onclick="menuToggle()"></div>
+  </div>
+
   <div class="menu-overlay">
     <ul>
       {% if user.is_authenticated %}
@@ -36,18 +37,10 @@
   </div>
   <div class="block"></div>
 
-  <main class="container">
+  <main class="row d-flex justify-content-center">
     {% block content %}
     {% endblock %}
   </main>
-
-  <footer class="page-footer">
-    <div class="right">
-      All Rights Reserved, &copy; 2019 Count Me In &nbsp;
-    </div>
-  </footer>
-
-
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

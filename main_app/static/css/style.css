@@ -15,12 +15,12 @@ body {
     overflow-x    : hidden;
 }
 
-.block {
+/* .block {
     position: relative;
     display : block;
     height  : 100px;
     width   : 100%;
-}
+} */
 
 /* ******************          SECTION HEADER         ****************** */
 
@@ -37,7 +37,7 @@ body {
 
 }
 
-.section-header header {
+.header {
     position       : absolute;
     TOP            : 0;
     left           : 0;
@@ -47,94 +47,6 @@ body {
     justify-content: space-between;
     align-items    : center;
     z-index        : 10;
-}
-
-.logo {
-    position       : relative;
-    font-size      : 1.5em;
-    color          : #fff;
-    font-weight    : 700;
-    text-decoration: none;
-    text-transform : uppercase;
-    letter-spacing : 1px;
-}
-
-.toggle {
-    position  : fixed;
-    top       : 40px;
-    right     : 40px;
-    width     : 50px;
-    height    : 50px;
-    background: #FFF url(../img/open.png);
-    cursor    : pointer;
-    z-index   : 11;
-}
-
-.toggle.menu-active {
-    background: #a4161a url(../img/close.png);
-    z-index   : 11;
-}
-
-.menu-overlay {
-    position       : fixed;
-    top            : 0;
-    left           : 0;
-    right          : 0;
-    bottom         : 0;
-    background     : #161a1d;
-    display        : flex;
-    justify-content: center;
-    align-items    : center;
-    overflow-y     : auto;
-    transform      : scale(0);
-    transition     : 0.5s;
-}
-
-.menu-active {
-    z-index  : 10;
-    transform: scale(1);
-}
-
-.menu-overlay ul {
-    position: relative;
-}
-
-.menu-overlay ul li {
-    position  : relative;
-    list-style: none;
-    text-align: center;
-    display   : block;
-}
-
-.menu-overlay ul li a {
-    position       : relative;
-    text-decoration: none;
-    font-size      : 300%;
-    line-height    : 150%;
-    text-transform : uppercase;
-    color          : #FFF;
-    font-weight    : 700;
-    display        : inline-block;
-}
-
-.menu-overlay ul li a:before {
-    content         : '';
-    position        : absolute;
-    top             : 90%;
-    left            : 0;
-    width           : 100%;
-    height          : 8px;
-    background      : #a4161a;
-    border-radius   : 10px;
-    transform       : translateY(-50%) scaleX(0);
-    transform-origin: right;
-    transition      : 0.5s transform;
-}
-
-.menu-overlay ul li a:hover:before {
-    transform       : translateY(-50%) scaleX(1);
-    transform-origin: left;
-    transition      : 0.5s transform;
 }
 
 .bg {
@@ -307,18 +219,19 @@ body {
 /* ******************          SECTION HEADER         ****************** */
 
 footer.page-footer {
-  padding-top: 0;
-  text-align: center;
+    padding-top: 0;
+    text-align : center;
 
 }
-footer{
-  position: absolute;
-  bottom: 0;
-  text-align: center;
+
+footer {
+    position  : absolute;
+    bottom    : 0;
+    text-align: center;
 }
 
 /* ******************          PLAN-INDEX PAGE         ****************** */
 
-.h1Plan{
-  margin-bottom: 50px;
+.h1Plan {
+    margin-bottom: 50px;
 }
