@@ -148,3 +148,7 @@ def add_to_plan(request, workout_id, plan_id, wishlist_id):
     print(f"workout  is ${workout}")
 
     return redirect('detail', plan_id=plan_id)
+
+
+def friends(request):
+    return render(request, "friends/friends.html")

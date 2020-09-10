@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-
+from django.conf import settings
 # from datetime import date
 from django.contrib.auth.models import User
 
@@ -63,3 +63,18 @@ class Photo(models.Model):
 
     def __str__(self):
         return f"Photo for cat_id: {self.plan_id} @{self.url}"
+
+
+class Friends(models.Model):
+    user1 = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name='user1', on_delete=models.CASCADE)
+    user2 = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name='user2', on_delete=models.CASCADE)
+
+
+class FriendRequest(models.Model):
+    to_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name='to_user', on_delete=models.CASCADE)
+    from_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name='from_user', on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
