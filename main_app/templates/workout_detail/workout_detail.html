@@ -30,7 +30,7 @@
                         {% csrf_token %}
                         <input type="submit" class="btn btn-round btn-danger" value="Add to PLAN">
                     </form>
-                    <form action="{% url 'assoc_wishlist' workout.id wishlist.id %}" method="POST">
+                    <form action="{% url 'assoc_wishlist' workout.id %}" method="POST">
                         {% csrf_token %}
                         <input type="submit" class="btn btn-round btn-danger" value="Add to WISHLIST">
                     </form>
