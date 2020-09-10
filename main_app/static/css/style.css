@@ -15,12 +15,12 @@ body {
     overflow-x    : hidden;
 }
 
-/* .block {
+.block {
     position: relative;
     display : block;
     height  : 100px;
     width   : 100%;
-} */
+}
 
 /* ******************          SECTION HEADER         ****************** */
 
@@ -228,10 +228,4 @@ footer {
     position  : absolute;
     bottom    : 0;
     text-align: center;
-}
-
-/* ******************          PLAN-INDEX PAGE         ****************** */
-
-.h1Plan {
-    margin-bottom: 50px;
 }

@@ -1,16 +1,82 @@
-{% extends 'base.html' %} {% block content %}
+{% load static %}
 
-{% if object %}
-<h1>Edit <span class="teal-text">{{object.name}}</span></h1>
-{% else %}
-<h1>Add Your Plan</h1>
-{% endif %}
-<form action="" method="post">
-  {% csrf_token %}
-  <table>
-    {{ form.as_table }}
-  </table>
-  <input type="submit" value="Submit!" class="btn">
-</form>
+<!DOCTYPE html>
+<html lang="en">
 
-{% endblock %}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>COUNT ME IN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/registration.css' %}">
+</head>
+
+<body class="create_plan_body">
+  <div class="header">
+    <a href="#" class="logo">cmi</a>
+    <div class="toggle" onclick="menuToggle()"></div>
+  </div>
+  <div class="menu-overlay">
+    <ul>
+      {% if user.is_authenticated %}
+      <li><a href="/">home</a></li>
+      <li><a href="#">recommendation</a></li>
+      <li><a href="/wishlist">wishlist</a></li>
+      <li><a href="{% url 'index' %}">my plan</a></li>
+      <li><a href="{% url 'logout' %}">Log Out</a></li>
+      {% else %}
+      <li><a href="/">home</a></li>
+      <li><a href="{% url 'login' %}">Log In</a></li>
+      <li><a href="{% url 'signup' %}">Sign Up</a></li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <div class="block"></div>
+
+  {% if object %}
+  <h1>Edit <span class="teal-text">{{object.name}}</span></h1>
+  {% else %}
+  <h1>Add Your Plan</h1>
+  {% endif %}
+  <div class="modal-dialog text-center">
+    <div class="col-sm-8 main-section">
+      <div class="modal-content">
+        <form action="" method="post" class="col12">
+          <div class="form-group">
+
+            {% csrf_token %}
+            <table>
+              {{ form.as_p }}
+            </table>
+          </div>
+          <input type="submit" value="Submit!" class="btn">
+        </form>
+      </div>
+      <!--end of modal-->
+    </div>
+  </div>
+
+
+
+
+  <!-- nav page toggle class  -->
+  <script src="../../static/js/navbar.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>
