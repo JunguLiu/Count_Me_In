@@ -24,52 +24,67 @@
         <li class="list" data-filter="outdoor-possible">outdoor</li>
     </ul>
     <div class="workouts">
-        <div class="itemBox with-equipment indoor-possible"><img src="../../static/img/workout-boxing.jpg" alt="">
+        {% for workout in workouts %}
+
+        <form action="{% url 'workouts_detail' workout.id%}" method="post">
+            {% csrf_token %}
+            <!-- %7B%%20url%20'workout_detail'%20workout.id%7D? -->
+            <div class=" itemBox {{workout.category}} {{workout.location}}"><img src="{{workout.image}}" alt="">
+
+                <p class="workout-p">{{workout.name}}<br />
+                    <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
+                    </small></p>
+            </div>
+        </form>
+
+        {% endfor %}
+    </div>
+    <!-- <div class=" itemBox with-equipment indoor-possible"><img src="../../static/img/workout-boxing.jpg" alt="">
             <p class="workout-p">Boxing<br />
                 <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
                 </small></p>
-        </div>
-        <div class="itemBox with-equipment outdoor-possible"><img src="../../static/img/workout-biking.jpg" alt="">
-            <p class="workout-p">Biking<br />
-                <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
-                </small></p>
-        </div>
-        <div class="itemBox with-equipment indoor-possible"><img src="../../static/img/workout-ropeSkipping.jpg" alt="">
-            <p class="workout-p">Rope Skipping<br />
-                <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
-                </small></p>
-        </div>
-        <div class="itemBox without-equipment outdoor-possible"><img src="../../static/img/workout-running.jpg" alt="">
-            <p class="workout-p">Running<br />
-                <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
-                </small></p>
-        </div>
-        <div class="itemBox without-equipment indoor-possible"><img src="../../static/img/workout-situp.jpg" alt="">
-            <p class="workout-p">Sit Up<br />
-                <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
-                </small></p>
-        </div>
-        <div class="itemBox without-equipment indoor-possible"><img src="../../static/img/workout-squat.jpg" alt="">
-            <p class="workout-p">Squat<br />
-                <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
-                </small></p>
-        </div>
-        <div class="itemBox without-equipment outdoor-possible"><img src="../../static/img/workout-swimming.jpg" alt="">
-            <p class="workout-p">Swimming<br />
-                <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
-                </small></p>
-        </div>
-        <div class="itemBox without-equipment indoor-possible"><img src="../../static/img/workout-yoga.jpg" alt="">
-            <p class="workout-p">Yoga<br />
-                <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
-                </small></p>
-        </div>
-        <div class="itemBox without-equipment indoor-possible"><img src="../../static/img/workout-pushUps.jpg" alt="">
-            <p class="workout-p">Push Up<br />
-                <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
-                </small></p>
-        </div>
     </div>
+    <div class="itemBox with-equipment outdoor-possible"><img src="../../static/img/workout-biking.jpg" alt="">
+        <p class="workout-p">Biking<br />
+            <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
+            </small></p>
+    </div>
+    <div class="itemBox with-equipment indoor-possible"><img src="../../static/img/workout-ropeSkipping.jpg" alt="">
+        <p class="workout-p">Rope Skipping<br />
+            <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
+            </small></p>
+    </div>
+    <div class="itemBox without-equipment outdoor-possible"><img src="../../static/img/workout-running.jpg" alt="">
+        <p class="workout-p">Running<br />
+            <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
+            </small></p>
+    </div>
+    <div class="itemBox without-equipment indoor-possible"><img src="../../static/img/workout-situp.jpg" alt="">
+        <p class="workout-p">Sit Up<br />
+            <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
+            </small></p>
+    </div>
+    <div class="itemBox without-equipment indoor-possible"><img src="../../static/img/workout-squat.jpg" alt="">
+        <p class="workout-p">Squat<br />
+            <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
+            </small></p>
+    </div>
+    <div class="itemBox without-equipment outdoor-possible"><img src="../../static/img/workout-swimming.jpg" alt="">
+        <p class="workout-p">Swimming<br />
+            <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
+            </small></p>
+    </div>
+    <div class="itemBox without-equipment indoor-possible"><img src="../../static/img/workout-yoga.jpg" alt="">
+        <p class="workout-p">Yoga<br />
+            <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
+            </small></p>
+    </div>
+    <div class="itemBox without-equipment indoor-possible"><img src="../../static/img/workout-pushUps.jpg" alt="">
+        <p class="workout-p">Push Up<br />
+            <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
+            </small></p>
+    </div> -->
+
 </section>
 <!-- SECTION GALLERY END -->
 

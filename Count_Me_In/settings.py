@@ -82,7 +82,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'CMI',
         'USER': config('USER'),
+
         'PASSWORD': config('PASSWORD'),
+
     }
 }
 
@@ -131,6 +133,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 
+
 # LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
 #     # 'index',
 #     'detail',
@@ -145,3 +148,4 @@ LOGOUT_REDIRECT_URL = '/'
 #     'add_to_plan',
 # ]
 django_heroku.settings(locals())
+

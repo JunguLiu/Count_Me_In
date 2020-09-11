@@ -1,15 +1,30 @@
 from django.db import models
 from django.urls import reverse
+
 from django.conf import settings
 # from datetime import date
+
 from django.contrib.auth.models import User
+from django.conf import settings
 
 
 class Workouts(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.TextField(max_length=100)
     calories = models.IntegerField()
-    category = models.CharField(max_length=100)
-    image = models.TextField(max_length=100)
+    category = models.TextField(max_length=100)
+    location = models.TextField(max_length=100)
+    image = models.TextField(max_length=300)
+
+    def __str__(self):
+        return self.name
+
+
+class Comments(models.Model):
+    name = models.CharField(max_length=100)
+
+    url = models.ImageField("image", upload_to='plan_image', blank=True)
+    wishlists = models.ManyToManyField("Wishlist")
+    workout = models.ManyToManyField(Workouts)
 
     def __str__(self):
         return self.name
@@ -26,14 +41,6 @@ class Plans(models.Model):
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'plan_id': self.id})
-
-
-class Comments(models.Model):
-    name = models.CharField(max_length=100)
-    plans = models.ForeignKey(Plans, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
 
 
 # class User(models.Model):
@@ -55,6 +62,9 @@ class Wishlist(models.Model):
 
     # def __str__(self):
     #     return f"{self.user}'s wishlist"
+
+    def __str__(self):
+        return str(self.user.username)
 
 
 class Photo(models.Model):

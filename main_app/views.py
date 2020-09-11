@@ -1,4 +1,6 @@
-from .models import Plans
+from .models import Plans, FriendRequest, Friends
+from django.contrib.auth import get_user_model
+from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -8,6 +10,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Plans, Workouts, Wishlist, Photo, FriendRequest, Friends
 
+from django.views.decorators.csrf import csrf_exempt
+
 import uuid
 import boto3
 
@@ -16,17 +20,17 @@ BUCKET = 'countmeincmi'
 # plans
 
 
-class PlanCreate(CreateView):
+class PlansCreate(CreateView):
     model = Plans
     fields = ["name", "workout", "url"]
 
 
-class PlanUpdate(UpdateView):
+class PlansUpdate(UpdateView):
     model = Plans
     fields = ["name", "workout"]
 
 
-class PlanDelete(DeleteView):
+class PlansDelete(DeleteView):
     model = Plans
     success_url = '/plans/'
 
@@ -43,7 +47,9 @@ def plans_detail(request, plan_id,):
     print(request.user.id)
     print(plan.workout)
     print(plan.workout.all())
-    all_wishlist = Wishlist.objects.get(user_id=request.user.id).workout.all()
+    wishlist = Wishlist(user_id=request.user.id)
+    wishlist.save()
+    all_wishlist = wishlist.workout.all()
     print("++++++++++")
     print(all_wishlist)
     workouts_not_in_plan = all_wishlist.exclude(
@@ -59,8 +65,8 @@ def plans_create(request):
     return render(request, "plan/create.html")
 
 
-def main_page(request):
-    return render(request, "main-page.html")
+# def main_page(request):
+#     return render(request, "main-page.html")
 
 
 def assoc_wishlist_to_plan(request, plan_id, workout_id):
@@ -71,10 +77,6 @@ def assoc_wishlist_to_plan(request, plan_id, workout_id):
 def add_photo(request, plan_id):
     photo_file = request.FILES.get('photo-file', None)
     if photo_file:
-        print("here***************")
-        print(photo_file)
-        print(plan_id)
-
         s3 = boto3.client('s3')
         key = uuid.uuid4().hex[:6]+photo_file.name[photo_file.name.rfind('.'):]
         try:
@@ -98,7 +100,14 @@ def unassoc_workout(request, plan_id, workout_id):
 
 
 def show_main(request):
-    return render(request, "main-page.html")
+    workouts = Workouts.objects.all()
+    print("WWWWWWWWWWWWWWWWWW")
+    for workout in workouts:
+        print(workout.id)
+        print(workout.location)
+        print(workout.category)
+
+    return render(request, "main-page.html", {"workouts": workouts})
 
 
 def signup(request):
@@ -176,4 +185,42 @@ def friends(request):
     else:
         friends_request = None
 
-    return render(request, "friends/friends.html", {"friends": friends, "friends_request": friends_request})
+    return render(request, "friends/friends.html", {"friends": friends, "friends_request": friends_request, "error": False})
+
+
+@csrf_exempt
+def addFriends(request):
+    User = get_user_model()
+
+    if str(request.user) == str(request.POST.get('to_user')) or User.objects.filter(
+            username=request.POST.get('to_user')).count() == 0 or FriendRequest.objects.filter(from_user=request.user,
+                                                                                               to_user=request.POST.get('to_user')).count() != 0:
+        if Friends.objects.filter(user1=request.user).count():
+            friends = Friends.objects.get(user1=request.user)
+        else:
+            friends = None
+
+        if FriendRequest.objects.filter(to_user=request.user).count():
+            friends_request = FriendRequest.objects.get(to_user=request.user)
+        else:
+            friends_request = None
+        return render(request, "friends/friends.html", {"friends": friends, "friends_request": friends_request, "error": True})
+    else:
+        r = FriendRequest(from_user=request.user,
+                          to_user=request.POST.get('to_user'))
+        r.save()
+
+        return redirect('/friends')
+
+
+def acceptRequest(request, id):
+    r = FriendRequest.objects.get(id=id)
+    f = Friends(user1=r.from_user, user2=r.to_user)
+    f.save()
+    FriendRequest.objects.filter(id=id).delete()
+    return redirect('/friends')
+
+
+def declineRequest(request, id):
+    FriendRequest.objects.filter(id=id).delete()
+    return redirect('/friends')

@@ -182,9 +182,14 @@ body {
     object-fit: cover;
 }
 
+.workouts .itemBox form {
+    position: relative;
+}
+
 .workout-p {
     color     : rgba(255, 255, 255, 1);
     background: black;
+    width     : 100%;
     background: linear-gradient(bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.4));
     background: -webkit-linear-gradient(bottom,
             rgba(0, 0, 0, 1),
@@ -208,12 +213,31 @@ body {
     opacity: 0;
 }
 
+.workout-p input {
+    width           : 60px;
+    color           : #FFF;
+    background-color: #ff7f50;
+    border          : 1px solid #ff7f50;
+    border-radius   : 5px;
+    margin-top      : 5px;
+}
+
+.workout-p input:hover,
+.workout-p input:active {
+    background-color: #a4161a;
+    border          : 1px solid #a4161a;
+}
+
 .show-description .workout-p {
-    height: 100px;
+    height: 130px;
 }
 
 .show-description img {
     opacity: 0.7;
+}
+
+.show-description form {
+    position: relative;
 }
 
 .show-description small {
@@ -232,4 +256,10 @@ footer {
     position  : absolute;
     bottom    : 0;
     text-align: center;
+}
+
+
+.workout_detail img {
+    width : 100%;
+    height: auto;
 }
