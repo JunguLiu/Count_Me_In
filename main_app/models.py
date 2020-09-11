@@ -73,4 +73,3 @@ class Friends(models.Model):
 class FriendRequest(models.Model):
     to_user = models.CharField(max_length=150)
     from_user = models.CharField(max_length=150)
-    timestamp = models.DateTimeField(auto_now_add=True)
