@@ -47,8 +47,12 @@ def plans_detail(request, plan_id,):
     print(request.user.id)
     print(plan.workout)
     print(plan.workout.all())
-    wishlist = Wishlist(user_id=request.user.id)
-    wishlist.save()
+    if Wishlist.objects.get(user_id=request.user.id) == False:
+        wishlist = Wishlist(user_id=request.user.id)
+        wishlist.save()
+    else:
+        wishlist = Wishlist(user_id=request.user.id)
+
     all_wishlist = wishlist.workout.all()
     print("++++++++++")
     print(all_wishlist)
@@ -129,7 +133,12 @@ def signup(request):
 
 def workouts_detail(request, workout_id):
     workout = Workouts.objects.get(id=workout_id)
-    wishlist = Wishlist.objects.all()
+    if Wishlist.objects.get(user_id=request.user.id) == False:
+        wishlist = Wishlist(user_id=request.user.id)
+        wishlist.save()
+    else:
+        wishlist = Wishlist(user_id=request.user.id)
+
     print("_____________________")
     return render(request, "workout_detail/workout_detail.html", {"workout": workout, "wishlist": wishlist})
 
@@ -139,7 +148,13 @@ def workouts_detail(request, workout_id):
 def wishlists_index(request):
     # wishlists = Wishlist.objects.get(id=wishlist_id).workouts_set.all()
     print("*****here******")
-    wishlists = Wishlist.objects.get(user_id=request.user.id).workout.all()
+    if Wishlist.objects.get(user_id=request.user.id) == False:
+        wishlist = Wishlist(user_id=request.user.id)
+        wishlist.save()
+    else:
+        wishlist = Wishlist(user_id=request.user.id)
+
+    wishlists = wishlist.workout.all()
     print(wishlists)
     return render(request, "wishlist/wishlist.html", {"wishlists": wishlists})
 
