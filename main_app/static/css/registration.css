@@ -56,7 +56,7 @@ h1 {
 }
 
 .main-section {
-    margin: 0 auto;
+    margin  : 0 auto;
     position: relative;
 }
 
@@ -152,4 +152,22 @@ span {
 
 .uploadingImgae {
     max-width: 600px;
+}
+
+.workout_detail_body {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+}
+
+.workout_detail_body h4,
+.workout_detail_body p {
+    color: #FFF;
+}
+
+
+.new_workout_body span {
+    font-size: 40px;
+}
+
+.new_workout_body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../img/register.jpg);
 }
