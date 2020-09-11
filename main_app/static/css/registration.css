@@ -57,6 +57,7 @@ h1 {
 
 .main-section {
     margin: 0 auto;
+    position: relative;
 }
 
 .modal-content {
@@ -149,6 +150,6 @@ span {
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../img/friend.jpg);
 }
 
-.uploadingImgae{
-    max-width:600px;
+.uploadingImgae {
+    max-width: 600px;
 }

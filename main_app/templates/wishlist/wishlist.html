@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<div class="bloack"></div>
 <h1>Wishlist</h1>
 
 <tbody>
@@ -14,7 +14,7 @@
     </div>
     <form action="{% url 'wishlist_to_plan' workout.id %}" method="POST">
         {% csrf_token %}
-        <button type="submit" class="btn">Add</button>
+        <button type="submit" class="btn">Add to plan</button>
     </form>
 
     </br>
