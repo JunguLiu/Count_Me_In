@@ -47,7 +47,9 @@ def plans_detail(request, plan_id,):
     print(request.user.id)
     print(plan.workout)
     print(plan.workout.all())
-    all_wishlist = Wishlist.objects.get(user_id=request.user.id).workout.all()
+    wishlist = Wishlist(user_id=request.user.id)
+    wishlist.save()
+    all_wishlist = wishlist.workout.all()
     print("++++++++++")
     print(all_wishlist)
     workouts_not_in_plan = all_wishlist.exclude(
