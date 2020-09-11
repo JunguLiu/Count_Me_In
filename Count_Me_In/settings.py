@@ -25,9 +25,9 @@ MEDIA_URL = "/media/"
 SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -78,14 +78,16 @@ WSGI_APPLICATION = 'Count_Me_In.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'CMI',
-        'USER': config('USER'),
+    'default': dj_database_url.config(
+        default='sqlite:////{0}'.format(os.path.join(BASE_DIR, 'db.sqlite3')))
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'CMI',
+    #     'USER': config('USER'),
 
-        'PASSWORD': config('PASSWORD'),
+    #     'PASSWORD': config('PASSWORD'),
 
-    }
+    # }
 }
 
 
@@ -133,7 +135,6 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 
-
 # LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
 #     # 'index',
 #     'detail',
@@ -148,4 +149,3 @@ LOGOUT_REDIRECT_URL = '/'
 #     'add_to_plan',
 # ]
 django_heroku.settings(locals())
-
