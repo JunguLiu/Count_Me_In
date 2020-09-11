@@ -24,7 +24,6 @@
     <ul>
       {% if user.is_authenticated %}
       <li><a href="/">home</a></li>
-      <li><a href="#">recommendation</a></li>
       <li><a href="{% url 'wishlists_index' %}">wishlist</a></li>
       <li><a href="{% url 'index' %}">my plan</a></li>
       <li><a href="{% url 'logout' %}">Log Out</a></li>
@@ -40,7 +39,7 @@
 
   <h1>My Workout Plans</h1>
   <div class="modal-dialog text-center plan-index-container">
-    <div class="col-sm-8 main-section">
+    <div class="col-sm main-section">
       <div class="modal-content">
         <div class="form-group">
           {%if plans.count %}

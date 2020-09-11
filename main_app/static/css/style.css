@@ -148,10 +148,6 @@ body {
     margin-bottom: 10px;
 }
 
-.section-gallery ul li:nth-child(1) {
-    background-color: #ff7f50;
-}
-
 .section-gallery ul li {
     list-style    : none;
     background    : #eee;
@@ -159,6 +155,11 @@ body {
     margin        : 5px;
     letter-spacing: 1px;
     cursor        : pointer;
+}
+
+.section-gallery ul li:hover {
+    background-color: #ff7f50;
+
 }
 
 .workouts {
@@ -256,4 +257,10 @@ footer {
     position  : absolute;
     bottom    : 0;
     text-align: center;
+}
+
+.workout_detail img {
+    width : 100%;
+    height: auto;
+
 }

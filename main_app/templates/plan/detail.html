@@ -58,6 +58,7 @@
         </div>
       </div>
     </div>
+
     <div class="col-sm main-section">
       <div class="modal-dialog text-center">
         <div class="modal-content">
@@ -77,15 +78,18 @@
               </form>
             </div>
           </div>
+          {% endfor %}
+          {% endif %}
         </div>
       </div>
     </div>
-    {% endfor %}
-    {% endif %}
+
+
+
     <div class="col-sm main-section">
       <div class="modal-dialog text-center">
         <div class="modal-content">
-          <h3>your saved workouts</h3>
+          <h3>your saved workouts that aren't in this plan</h3>
           {% if wishlists.count %}
           {% for workout in wishlists.all %}
           <div class="card">
@@ -101,18 +105,19 @@
               </form>
             </div>
           </div>
+          {% endfor %}
+          {% endif %}
         </div>
       </div>
     </div>
-    {% endfor %}
-    {% endif %}
+
 
     <div class="col-sm main-section">
       <div class="modal-dialog text-center">
         <div class="modal-content">
           <h3>Upload your pictures to see your result following this plan!</h3>
           {% for photo in plan.photo_set.all %}
-          <img class="responsive-img card-panel" src="{{photo.url}}">
+          <img class="responsive-img card-panel uploadingImgae" src="{{photo.url}}" style="width:500px;">
           {% empty %}
           <div class="card-panel teal-text center-align">No Photos Uploaded</div>
           {% endfor %}
