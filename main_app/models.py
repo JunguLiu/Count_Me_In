@@ -1,8 +1,11 @@
 from django.db import models
 from django.urls import reverse
+
 from django.conf import settings
 # from datetime import date
+
 from django.contrib.auth.models import User
+from django.conf import settings
 
 
 class Workouts(models.Model):
@@ -16,25 +19,30 @@ class Workouts(models.Model):
         return self.name
 
 
-class Plans(models.Model):
+class Comments(models.Model):
     name = models.CharField(max_length=100)
+
     url = models.ImageField("image", upload_to='plan_image', blank=True)
     wishlists = models.ManyToManyField("Wishlist")
     workout = models.ManyToManyField(Workouts)
+
+
+    def __str__(self):
+        return self.name
+
+
+class Plans(models.Model):
+    name = models.CharField(max_length=100),
+    workouts = models.ManyToManyField(Workouts)
+    comments = models.ForeignKey(Comments, on_delete=models.CASCADE)
+    date = models.DateField
+    image = models.ImageField
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'plan_id': self.id})
-
-
-class Comments(models.Model):
-    name = models.CharField(max_length=100)
-    plans = models.ForeignKey(Plans, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
 
 
 # class User(models.Model):
@@ -48,6 +56,7 @@ class Comments(models.Model):
 #         return self.name
 
 
+
 class Wishlist(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True)
@@ -58,12 +67,9 @@ class Wishlist(models.Model):
     #     return f"{self.user}'s wishlist"
 
 
-class Photo(models.Model):
-    url = models.CharField(max_length=200)
-    plan = models.ForeignKey(Plans, on_delete=models.CASCADE)
-
     def __str__(self):
-        return f"Photo for cat_id: {self.plan_id} @{self.url}"
+        return str(self.user.username)
+
 
 
 class Friends(models.Model):
@@ -74,3 +80,4 @@ class Friends(models.Model):
 class FriendRequest(models.Model):
     to_user = models.CharField(max_length=150)
     from_user = models.CharField(max_length=150)
+
