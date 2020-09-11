@@ -25,6 +25,7 @@
                 </div>
                 <hr>
                 {% if user.is_authenticated %}
+
                 <div class="form-container">
                     <form action="{% url 'wishlist_to_plan' workout.id%}" method="post">
                         {% csrf_token %}
@@ -35,6 +36,10 @@
                         <input type="submit" class="btn btn-round btn-danger" value="Add to WISHLIST">
                     </form>
                 </div>
+
+                {% else %}
+                <p>Please login/register inorder to save the workouts in your plan</p>
+
                 {% endif %}
             </div>
         </div>
