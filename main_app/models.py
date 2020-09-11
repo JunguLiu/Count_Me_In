@@ -66,15 +66,10 @@ class Photo(models.Model):
 
 
 class Friends(models.Model):
-    user1 = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='user1', on_delete=models.CASCADE)
-    user2 = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='user2', on_delete=models.CASCADE)
+    user1 = models.CharField(max_length=150)
+    user2 = models.CharField(max_length=150)
 
 
 class FriendRequest(models.Model):
-    to_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='to_user', on_delete=models.CASCADE)
-    from_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='from_user', on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    to_user = models.CharField(max_length=150)
+    from_user = models.CharField(max_length=150)

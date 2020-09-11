@@ -1,29 +1,55 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>COUNT ME IN</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/style.css' %}"
+    />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>COUNT ME IN</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
-  <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}" />
-</head>
+  <body>
+    <div class="header">
+      <a href="#" class="logo">cmi</a>
+      <div class="toggle" onclick="menuToggle()"></div>
+    </div>
 
-<body>
-  <div class="header">
-    <a href="#" class="logo">cmi</a>
-    <div class="toggle" onclick="menuToggle()"></div>
-  </div>
+    <div class="menu-overlay">
+      <ul>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'show_main' %}">home</a></li>
+        <li><a href="#">recommendation</a></li>
+        <li><a href="{% url 'show_main' %}">wishlist</a></li>
+        <li><a href="{% url 'index' %}">my plan</a></li>
+        <li><a href="{% url 'friends' %}">My Friends</a></li>
+        <li><a href="{% url 'logout' %}">Log Out</a></li>
+        {% else %}
+        <li><a href="{% url 'login' %}">Log In</a></li>
+        <li><a href="{% url 'signup' %}">Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </div>
 
   <div class="menu-overlay">
     <ul>
       {% if user.is_authenticated %}
       <li><a href="{% url 'show_main' %}">home</a></li>
+
       <li><a href="/wishlist">wishlist</a></li>
       <li><a href="{% url 'index' %}">my plan</a></li>
       <li><a href="{% url 'friends' %}">My Friends</a></li>
@@ -38,23 +64,8 @@
   {% block content %}
   {% endblock %}
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-    crossorigin="anonymous"></script>
-  <!-- nav page toggle class  -->
-  <script src="../static/js/navbar.js"></script>
 
-  <!-- MAIN PAGE ANIMATION  -->
-  <script src="../static/js/flashPage.js"></script>
-
-  <!-- GALLERY SECTION FILTER -->
-  <script src="../static/js/images.js"></script>
-</body>
-
+    <!-- GALLERY SECTION FILTER -->
+    <script src="../static/js/images.js"></script>
+  </body>
 </html>
