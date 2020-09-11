@@ -17,7 +17,7 @@ urlpatterns = [
     # path('plans/<int:plan_id>/add_photo/', views.add_photo, name='add_photo'),
     # detail
     path('workouts/<int:workout_id>/',
-         views.workouts_detail, name='workout_detail'),
+         views.workouts_detail, name='workouts_detail'),
     # wishlist
     path('wishlists',
          views.wishlists_index, name='wishlists_index'),

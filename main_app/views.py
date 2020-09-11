@@ -63,8 +63,8 @@ def plans_create(request):
     return render(request, "plan/create.html")
 
 
-def main_page(request):
-    return render(request, "main-page.html")
+# def main_page(request):
+#     return render(request, "main-page.html")
 
 
 def assoc_wishlist_to_plan(request, plan_id, workout_id):
@@ -99,6 +99,12 @@ def unassoc_workout(request, plan_id, workout_id):
 
 def show_main(request):
     workouts = Workouts.objects.all()
+    print("WWWWWWWWWWWWWWWWWW")
+    for workout in workouts:
+        print(workout.id)
+        print(workout.location)
+        print(workout.category)
+
     return render(request, "main-page.html", {"workouts": workouts})
 
 
@@ -177,7 +183,6 @@ def friends(request):
     else:
         friends_request = None
 
-
     return render(request, "friends/friends.html", {"friends": friends, "friends_request": friends_request, "error": False})
 
 
@@ -217,4 +222,3 @@ def acceptRequest(request, id):
 def declineRequest(request, id):
     FriendRequest.objects.filter(id=id).delete()
     return redirect('/friends')
-
