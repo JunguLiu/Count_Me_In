@@ -148,7 +148,9 @@ def assoc_wishlist(request, workout_id):
     # Note that you can pass a toy's id instead of the whole object
     # Workouts.objects.get(id=workout_id).wishlists.add(wishlist_id)
     print("++++++++++assoc_wishlist++++++++++")
-    Wishlist.objects.get(user_id=request.user.id).workout.add(workout_id)
+    wishlist = Wishlist(user_id=request.user.id)
+    wishlist.save()
+    wishlist.workout.add(workout_id)
     return redirect('wishlists_index')
 
 

@@ -5,26 +5,23 @@
 
 <tbody>
     {% for workout in wishlists %}
-    <tr>
-        <td>{{workout.name}}</td>
-        <td>{{workout.calories}}</td>
-    </tr>
-    <div class="card-action">
-        <form action="{% url 'wishlist_to_plan' workout.id %}" method="POST">
-            {% csrf_token %}
-            <button type="submit" class="btn">Add</button>
-        </form>
-    </div>
-    </br>
-    {% endfor %}
-</tbody>
-<div class="workouts">
-    <div class="itemBox"><img src="../../static/img/workout-boxing.jpg" alt="">
-        <p class="workout-p">Boxing<br />
-            <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
-            </small>
+    <div class="workouts">
+        <div class="itemBox"><img src="{{workout.image}}" alt="">
+        </div>
+        <p>{{workout.name}}<br />
+            calories burned: {{workout.calories}}
         </p>
     </div>
-</div>
+    <form action="{% url 'wishlist_to_plan' workout.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn">Add</button>
+    </form>
 
+    </br>
+    {% endfor %}
+
+
+
+
+</tbody>
 {% endblock %}
