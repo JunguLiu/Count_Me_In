@@ -22,6 +22,11 @@
       type="text/css"
       href="{% static 'css/registration.css' %}"
     />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/friends.css' %}"
+    />
   </head>
 
   <body>
@@ -45,14 +50,26 @@
       </ul>
     </div>
 
-    <h1>My Friends</h1>
+    <h1>Friends Requests</h1>
 
     <div class="card">
       <div class="card-content">
-        <span class="card-title">{{ friends.name }}</span>
+        {% if friends_request %}
+        <h2 class="request">
+          {{ friends_request.from_user }} wants to add you as a friend
+          <a href="{% url 'signup' %}">Accept</a>
+          <a href="{% url 'signup' %}">Decline</a>
+        </h2>
+        {% endif %}
       </div>
     </div>
-    >
+
+    <h1>My Friends</h1>
+    <div class="card">
+      <div class="card-content">
+        <h2 class="request">{{ friends.user2 }}</h2>
+      </div>
+    </div>
 
     <!-- nav page toggle class  -->
     <script src="../../static/js/navbar.js"></script>
