@@ -9,10 +9,11 @@ from django.conf import settings
 
 
 class Workouts(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.TextField(max_length=100)
     calories = models.IntegerField()
-    category = models.CharField(max_length=100)
-    image = models.TextField(max_length=100)
+    category = models.TextField(max_length=100)
+    location = models.TextField(max_length=100)
+    image = models.TextField(max_length=300)
 
     def __str__(self):
         return self.name

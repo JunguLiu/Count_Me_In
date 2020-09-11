@@ -24,10 +24,20 @@
         <li class="list" data-filter="outdoor-possible">outdoor</li>
     </ul>
     <div class="workouts">
-        <div class="itemBox with-equipment indoor-possible"><img src="../../static/img/workout-boxing.jpg" alt="">
-            <p class="workout-p">Boxing<br />
+        {% for workout in workouts %}
+        <div class="itemBox {{workout.category}} {{workout.location}}"><img src="{{workout.image}}" alt="">
+            <p class="workout-p">{{workout.name}}<br />
+            <form action="{% url 'workout_detail' workout.id}" method="GET">
                 <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
                 </small></p>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- <div class=" itemBox with-equipment indoor-possible"><img src="../../static/img/workout-boxing.jpg" alt="">
+                <p class="workout-p">Boxing<br />
+                    <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
+                    </small></p>
         </div>
         <div class="itemBox with-equipment outdoor-possible"><img src="../../static/img/workout-biking.jpg" alt="">
             <p class="workout-p">Biking<br />
@@ -68,8 +78,8 @@
             <p class="workout-p">Push Up<br />
                 <small>Check detail about this workout <input type="submit" class="go-to-detail" value="GO">
                 </small></p>
-        </div>
-    </div>
+        </div> -->
+
 </section>
 <!-- SECTION GALLERY END -->
 

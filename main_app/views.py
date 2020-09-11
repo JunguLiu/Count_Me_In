@@ -75,10 +75,6 @@ def assoc_wishlist_to_plan(request, plan_id, workout_id):
 def add_photo(request, plan_id):
     photo_file = request.FILES.get('photo-file', None)
     if photo_file:
-        print("here***************")
-        print(photo_file)
-        print(plan_id)
-
         s3 = boto3.client('s3')
         key = uuid.uuid4().hex[:6]+photo_file.name[photo_file.name.rfind('.'):]
         try:
@@ -102,7 +98,8 @@ def unassoc_workout(request, plan_id, workout_id):
 
 
 def show_main(request):
-    return render(request, "main-page.html")
+    workouts = Workouts.objects.all()
+    return render(request, "main-page.html", {"workouts": workouts})
 
 
 def signup(request):
