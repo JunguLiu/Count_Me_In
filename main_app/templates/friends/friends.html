@@ -50,6 +50,23 @@
       </ul>
     </div>
 
+    <h1>Add a New Friend</h1>
+
+    <form action="{% url 'addFriends' %}" method="POST">
+      {% csrf_token %}
+      <input type="text" name="to_user" required />
+      <button type="submit">Add</button>
+    </form>
+    {% if error %}
+    <h2 class="alert alert-danger" role="alert">
+      Please check:
+      <br />
+      1.if the username is valid and is not same as your username.
+      <br />
+      2.if you have already sent the friend request.
+    </h2>
+    {% endif %}
+
     <h1>Friends Requests</h1>
 
     <div class="card">
@@ -57,8 +74,10 @@
         {% if friends_request %}
         <h2 class="request">
           {{ friends_request.from_user }} wants to add you as a friend
-          <a href="{% url 'signup' %}">Accept</a>
-          <a href="{% url 'signup' %}">Decline</a>
+
+          <a href="/friends/acceptRequest/{{friends_request.id}}/">Accept</a>
+          <a href="/friends/declineRequest/{{friends_request.id}}/">Decline</a>
+
         </h2>
         {% endif %}
       </div>
