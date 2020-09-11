@@ -17,13 +17,14 @@
 
 <body>
   <div class="header">
-    <a href="{% url 'show_main' %}" class="logo">cmi</a>
+    <a href="#" class="logo">cmi</a>
     <div class="toggle" onclick="menuToggle()"></div>
   </div>
   <div class="menu-overlay">
     <ul>
       {% if user.is_authenticated %}
-      <li><a href="{% url 'show_main' %}">home</a></li>
+      <li><a href="/">home</a></li>
+      <li><a href="#">recommendation</a></li>
       <li><a href="/wishlist">wishlist</a></li>
       <li><a href="{% url 'index' %}">my plan</a></li>
       <li><a href="{% url 'logout' %}">Log Out</a></li>
