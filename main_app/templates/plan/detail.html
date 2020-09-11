@@ -1,75 +1,143 @@
-{% extends 'base.html' %}
-{% block content %}
+{% load static %}
 
-<h1>{{ plan.name }} Details</h1>
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">{{ plan.name }}</span>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>COUNT ME IN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/registration.css' %}">
+</head>
+
+<body class="plan_detail_body">
+  <div class="header">
+    <a href="#" class="logo">cmi</a>
+    <div class="toggle" onclick="menuToggle()"></div>
+  </div>
+  <div class="menu-overlay">
+    <ul>
+      {% if user.is_authenticated %}
+      <li><a href="/wishlist">wishlist</a></li>
+      <li><a href="{% url 'index' %}">my plan</a></li>
+      <li><a href="{% url 'logout' %}">Log Out</a></li>
+      {% else %}
+      <li><a href="{% url 'show_main' %}">home</a></li>
+      <li><a href="{% url 'login' %}">Log In</a></li>
+      <li><a href="{% url 'signup' %}">Sign Up</a></li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <div class="block"></div>
+
+  <h1>{{ plan.name }} Details</h1>
+
+
+  <div class="card">
 
   </div>
-  <div class="card-action">
-    <a href="{% url 'plans_update' plan.id %}">Edit</a>
-    <a href="{% url 'plans_delete' plan.id %}">Delete</a>
-  </div>
-</div>
 
-<hr>
-<div class="row">
-  <div class="col s6">
-    <h3>{{ plan.name }} plan's workouts</h3>
-    {% if plan.workout.count %}
-    {% for workout in  workouts %}
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">
-          {{ workout.name }}
-        </span>
+  <div class="row">
+    <div class="modal-dialog text-center">
+      <div class="col-sm main-section">
+        <div class="modal-content">
+
+          <div class="card-content">
+            <h3>{{ plan.name }}</h3>
+          </div>
+          <div class="card-action">
+            <a href="{% url 'plans_update' plan.id %}" class="btn">Edit</a>
+            <a href="{% url 'plans_delete' plan.id %}" class="btn">Delete</a>
+          </div>
+        </div>
       </div>
-      <div class="card-action">
-        <form action="{% url 'unassoc_workout' plan.id workout.id %}" method="post">
-          {% csrf_token %}
-          <button type="submit" class="btn">Remove</button>
-        </form>
+    </div>
+    <div class="col-sm main-section">
+      <div class="modal-dialog text-center">
+        <div class="modal-content">
+          <h3>{{ plan.name }} plan's workouts</h3>
+          {% if plan.workout.count %}
+          {% for workout in workouts %}
+          <div class="card">
+            <div class="card-content">
+              <p class="card-title">
+                {{ workout.name }}
+              </p>
+            </div>
+            <div class="card-action">
+              <form action="{% url 'unassoc_workout' plan.id workout.id %}" method="post" class="col12">
+                {% csrf_token %}
+                <button type="submit" class="btn">Remove</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <div class="col-sm main-section">
+      <div class="modal-dialog text-center">
+        <div class="modal-content">
+          <h3>your saved workouts</h3>
+          {% if wishlists.count %}
+          {% for workout in wishlists.all %}
+          <div class="card">
+            <div class="card-content">
+              <p class="card-title">
+                {{ workout.name }}
+              </p>
+            </div>
+            <div class="card-action">
+              <form action="{% url 'assoc_wishlist_to_plan' plan.id workout.id%}" method="post" class="col12">
+                {% csrf_token %}
+                <button type="submit" class="btn">Add</button>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     {% endfor %}
     {% endif %}
 
-  </div>
-  <div class="col s6">
-    <h3>your saved workouts</h3>
-    {% if wishlists.count %}
-    {% for workout in wishlists.all %}
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">
-          {{ workout.name }}
-        </span>
-      </div>
-      <div class="card-action">
-        <form action="{% url 'assoc_wishlist_to_plan' plan.id workout.id%}" method="post">
-          {% csrf_token %}
-          <button type="submit" class="btn">Add</button>
-        </form>
+    <div class="col-sm main-section">
+      <div class="modal-dialog text-center">
+        <div class="modal-content">
+          <h3>Upload your pictures to see your result following this plan!</h3>
+          {% for photo in plan.photo_set.all %}
+          <img class="responsive-img card-panel" src="{{photo.url}}">
+          {% empty %}
+          <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+          {% endfor %}
+          <form action="{% url 'add_photo' plan.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+            {% csrf_token %}
+            <input type="file" name="photo-file">
+            <br><br>
+            <input type="submit" class="btn" value="Upload Photo">
+          </form>
+        </div>
       </div>
     </div>
-    {% endfor %}
-    {% endif %}
-  </div>
-  <h3>Upload your pictures to see your result following this plan!</h3>
-  {% for photo in plan.photo_set.all %}
-  <img class="responsive-img card-panel" src="{{photo.url}}">
-  {% empty %}
-  <div class="card-panel teal-text center-align">No Photos Uploaded</div>
-  {% endfor %}
-  <form action="{% url 'add_photo' plan.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
-    {% csrf_token %}
-    <input type="file" name="photo-file">
-    <br><br>
-    <input type="submit" class="btn" value="Upload Photo">
-  </form>
+    <!-- nav page toggle class  -->
+    <script src="../../static/js/navbar.js"></script>
 
-</div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"></script>
 
-{% endblock %}
+</body>
+
+</html>
