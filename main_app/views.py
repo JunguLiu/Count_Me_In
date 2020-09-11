@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Plans, Workouts, Wishlist, Photo, FriendRequest, Friends
@@ -166,7 +166,14 @@ def add_to_plan(request, workout_id, plan_id):
 
 
 def friends(request):
-    print(request.user.id)
-    friends = Friends.objects.get(user1=request.user.id)
-    friends_request = FriendRequest.objects.get(to_user_id=request.user.id)
+    if Friends.objects.filter(user1=request.user).count():
+        friends = Friends.objects.get(user1=request.user)
+    else:
+        friends = None
+
+    if FriendRequest.objects.filter(to_user=request.user).count():
+        friends_request = FriendRequest.objects.get(to_user=request.user)
+    else:
+        friends_request = None
+
     return render(request, "friends/friends.html", {"friends": friends, "friends_request": friends_request})
