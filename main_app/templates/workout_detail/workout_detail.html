@@ -1,49 +1,97 @@
-{% extends 'base.html' %}
-{% block content %}
+{% load static %}
 
-<div class="container workout_detail">
-    <section>
-        <div class="row">
-            <div class="col">
-                <div class="workout-img-details">
-                    <div class="block"></div>
-                    <img src="{{workout.image}}" alt="">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>COUNT ME IN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/registration.css' %}">
+</head>
+
+<body class="workout_detail_body">
+    <div class="header">
+        <a href="#" class="logo">cmi</a>
+        <div class="toggle" onclick="menuToggle()"></div>
+    </div>
+    <div class="menu-overlay">
+        <ul>
+            {% if user.is_authenticated %}
+            <li><a href="/wishlist">wishlist</a></li>
+            <li><a href="{% url 'index' %}">my plan</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+            {% else %}
+            <li><a href="/">home</a></li>
+            <li><a href="{% url 'login' %}">Log In</a></li>
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div class="block"></div>
+    <div class="container workout_detail">
+        <section>
+            <div class="row">
+                <div class="col">
+                    <div class="workout-img-details">
+                        <div class="block"></div>
+                        <img src="{{workout.image}}" alt="">
+                    </div>
+                </div>
+                <div class="col">
+                    <h4 class="workout-title">{{workout.name}}</h4>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat eum ullam pariatur magnam
+                        mollitia, illum omnis! Et neque, quod obcaecati nemo, quam laboriosam architecto, possimus
+                        perferendis iure explicabo dolor repellendus?
+                    </p>
+                    <hr>
+                    <div class="workout-list">
+                        <span class="posted_in"><strong>Name:{{workout.name}} </strong> </span><br />
+                        <span class="tagged_as"><strong>Calorioes:{{workout.name}}</strong> </span> <br />
+                        <!-- <span class="tagged_as"><strong>Categoris:</strong> </span><br /> -->
+                    </div>
+                    <hr>
+                    {% if user.is_authenticated %}
+
+                    <div class="form-container">
+                        <form action="{% url 'wishlist_to_plan' workout.id%}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-round btn-danger" value="Add to PLAN">
+                        </form>
+                        <form action="{% url 'assoc_wishlist' workout.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-round btn-danger" value="Add to WISHLIST">
+                        </form>
+                    </div>
+
+                    {% else %}
+                    <p>Please login/register inorder to save the workouts in your plan</p>
+
+                    {% endif %}
                 </div>
             </div>
-            <div class="col">
-                <h4 class="workout-title">{{workout.name}}</h4>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat eum ullam pariatur magnam
-                    mollitia, illum omnis! Et neque, quod obcaecati nemo, quam laboriosam architecto, possimus
-                    perferendis iure explicabo dolor repellendus?
-                </p>
-                <hr>
-                <div class="workout-list">
-                    <span class="posted_in"><strong>Name:{{workout.name}} </strong> </span><br />
-                    <span class="tagged_as"><strong>Calorioes:{{workout.name}}</strong> </span> <br />
-                    <!-- <span class="tagged_as"><strong>Categoris:</strong> </span><br /> -->
-                </div>
-                <hr>
-                {% if user.is_authenticated %}
+        </section>
+    </div>
 
-                <div class="form-container">
-                    <form action="{% url 'wishlist_to_plan' workout.id%}" method="post">
-                        {% csrf_token %}
-                        <input type="submit" class="btn btn-round btn-danger" value="Add to PLAN">
-                    </form>
-                    <form action="{% url 'assoc_wishlist' workout.id %}" method="POST">
-                        {% csrf_token %}
-                        <input type="submit" class="btn btn-round btn-danger" value="Add to WISHLIST">
-                    </form>
-                </div>
+    <script src="../../static/js/navbar.js"></script>
 
-                {% else %}
-                <p>Please login/register inorder to save the workouts in your plan</p>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
 
-                {% endif %}
-            </div>
-        </div>
-    </section>
-</div>
+</body>
 
-{% endblock %}
+</html>
