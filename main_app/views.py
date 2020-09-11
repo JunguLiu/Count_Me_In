@@ -9,7 +9,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Plans, Workouts, Wishlist, Photo, FriendRequest, Friends
+
 from django.views.decorators.csrf import csrf_exempt
+
 import uuid
 import boto3
 
@@ -20,12 +22,12 @@ BUCKET = 'countmeincmi'
 
 class PlanCreate(CreateView):
     model = Plans
-    fields = "__all__"
+    fields = ["name", "workout", "url"]
 
 
 class PlanUpdate(UpdateView):
     model = Plans
-    fields = "__all__"
+    fields = ["name", "workout"]
 
 
 class PlanDelete(DeleteView):
@@ -38,15 +40,23 @@ def plans_index(request):
     return render(request, "plan/index.html", {"plans": plans})
 
 
-def plans_detail(request, plan_id):
+def plans_detail(request, plan_id,):
     plan = Plans.objects.get(id=plan_id)
+    workouts = plan.workout.all()
     print("***********")
-    print(plan)
+    print(request.user.id)
     print(plan.workout)
-    workouts_not_in_plan = Wishlist.objects.exclude(
-        id__in=plan.wishlists.all().values_list('id'))
+    print(plan.workout.all())
+    all_wishlist = Wishlist.objects.get(user_id=request.user.id).workout.all()
+    print("++++++++++")
+    print(all_wishlist)
+    workouts_not_in_plan = all_wishlist.exclude(
+        id__in=plan.workout.all().values_list('id'))
     print("*****HERE******")
-    return render(request, "plan/detail.html", {"plan": plan, "wishlists": workouts_not_in_plan})
+    print(workouts_not_in_plan)
+    print(plan.workout.all())
+
+    return render(request, "plan/detail.html", {"plan": plan, "wishlists": workouts_not_in_plan, "workouts": workouts})
 
 
 def plans_create(request):
@@ -57,8 +67,8 @@ def main_page(request):
     return render(request, "main-page.html")
 
 
-def assoc_wishlist_to_plan(request, plan_id, wishlist_id):
-    Plans.objects.get(id=plan_id).wishlist.add(wishlist_id)
+def assoc_wishlist_to_plan(request, plan_id, workout_id):
+    Plans.objects.get(id=plan_id).workout.add(workout_id)
     return redirect('detail', plan_id=plan_id)
 
 
@@ -81,6 +91,11 @@ def add_photo(request, plan_id):
 
         except:
             print('An error occurred uploading file to S3')
+    return redirect('detail', plan_id=plan_id)
+
+
+def unassoc_workout(request, plan_id, workout_id):
+    Plans.objects.get(id=plan_id).workout.remove(workout_id)
     return redirect('detail', plan_id=plan_id)
 
 # main page
@@ -116,28 +131,29 @@ def workouts_detail(request, workout_id):
 # wishlist
 
 
-def wishlists_index(request, wishlist_id):
+def wishlists_index(request):
     # wishlists = Wishlist.objects.get(id=wishlist_id).workouts_set.all()
     print("*****here******")
-    wishlists = Wishlist.objects.get(id=wishlist_id).workout.all()
+    wishlists = Wishlist.objects.get(user_id=request.user.id).workout.all()
     print(wishlists)
-    return render(request, "wishlist/wishlist.html", {"wishlists": wishlists, "wishlist_id": wishlist_id})
+    return render(request, "wishlist/wishlist.html", {"wishlists": wishlists})
 
 
-def assoc_wishlist(request, workout_id, wishlist_id):
+def assoc_wishlist(request, workout_id):
     # Note that you can pass a toy's id instead of the whole object
     # Workouts.objects.get(id=workout_id).wishlists.add(wishlist_id)
-    Wishlist.objects.get(id=wishlist_id).workout.add(workout_id)
-    return redirect('wishlists_index', wishlist_id=wishlist_id)
+    print("++++++++++assoc_wishlist++++++++++")
+    Wishlist.objects.get(user_id=request.user.id).workout.add(workout_id)
+    return redirect('wishlists_index')
 
 
-def wishlist_to_plan(request, workout_id, wishlist_id):
+def wishlist_to_plan(request, workout_id):
     print("*****HERE222******")
     plans = Plans.objects.all()
-    return render(request, "plan/new_workout.html", {"plans": plans, "workout_id": workout_id, "wishlist_id": wishlist_id})
+    return render(request, "plan/new_workout.html", {"plans": plans, "workout_id": workout_id})
 
 
-def add_to_plan(request, workout_id, plan_id, wishlist_id):
+def add_to_plan(request, workout_id, plan_id):
     print("*****HERE3333******")
     print(plan_id)
     print(workout_id)
@@ -163,6 +179,7 @@ def friends(request):
         friends_request = FriendRequest.objects.get(to_user=request.user)
     else:
         friends_request = None
+
 
     return render(request, "friends/friends.html", {"friends": friends, "friends_request": friends_request, "error": False})
 
@@ -203,3 +220,4 @@ def acceptRequest(request, id):
 def declineRequest(request, id):
     FriendRequest.objects.filter(id=id).delete()
     return redirect('/friends')
+

@@ -1,6 +1,9 @@
 from django.db import models
 from django.urls import reverse
-from datetime import date
+
+from django.conf import settings
+# from datetime import date
+
 from django.contrib.auth.models import User
 from django.conf import settings
 
@@ -17,6 +20,11 @@ class Workouts(models.Model):
 
 class Comments(models.Model):
     name = models.CharField(max_length=100)
+
+    url = models.ImageField("image", upload_to='plan_image', blank=True)
+    wishlists = models.ManyToManyField("Wishlist")
+    workout = models.ManyToManyField(Workouts)
+
 
     def __str__(self):
         return self.name
@@ -36,29 +44,39 @@ class Plans(models.Model):
         return reverse('detail', kwargs={'plan_id': self.id})
 
 
-class User(models.Model):
-    name = models.CharField(max_length=100)
-    weight = models.IntegerField()
-    goalWeight = models.IntegerField()
-    age = models.IntegerField()
-    plans = models.ForeignKey(Plans, on_delete=models.CASCADE)
+# class User(models.Model):
+#     name = models.CharField(max_length=100)
+#     weight = models.IntegerField()
+#     goalWeight = models.IntegerField()
+#     age = models.IntegerField()
+#     plans = models.ForeignKey(Plans, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 
-class Friends(models.Model):
+
+class Wishlist(models.Model):
     user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    friends = models.ManyToManyField("Friends", blank=True)
+        User, on_delete=models.CASCADE, primary_key=True)
+    name = models.CharField(max_length=100)
+    workout = models.ManyToManyField(Workouts)
+
+    # def __str__(self):
+    #     return f"{self.user}'s wishlist"
+
 
     def __str__(self):
         return str(self.user.username)
 
 
+
+class Friends(models.Model):
+    user1 = models.CharField(max_length=150)
+    user2 = models.CharField(max_length=150)
+
+
 class FriendRequest(models.Model):
-    to_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='to_user', on_delete=models.CASCADE)
-    from_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='from_user', on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    to_user = models.CharField(max_length=150)
+    from_user = models.CharField(max_length=150)
+
