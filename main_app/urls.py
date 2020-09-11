@@ -30,4 +30,12 @@ urlpatterns = [
     # login...
     path('accounts/signup/', views.signup, name='signup'),
 
+
+    # friends
+    path('friends/', views.friends, name='friends'),
+    path('friends/add', views.addFriends, name='addFriends'),
+    path('friends/acceptRequest/<int:id>/',
+         views.acceptRequest, name='acceptRequest'),
+    path('friends/declineRequest/<int:id>/',
+         views.declineRequest, name='acceptRequest')
 ]

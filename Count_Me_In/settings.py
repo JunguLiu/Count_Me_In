@@ -80,7 +80,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'CMI',
         'USER': config('USER'),
-        'PASSWORD': config('PASSWORD'),
 
     }
 }
@@ -124,7 +123,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/plans/'
+LOGIN_REDIRECT_URL = '/'
 
 # Add this variable to specify where logging out redirects to
-LOGOUT_REDIRECT_URL = '/plans'
+LOGOUT_REDIRECT_URL = '/'

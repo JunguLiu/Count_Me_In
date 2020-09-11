@@ -1,12 +1,15 @@
-from .models import Plans
+from .models import Plans, FriendRequest, Friends
+from django.contrib.auth import get_user_model
+from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-from .models import Plans, Workouts, Wishlist, Photo
+from .models import Plans, Workouts, Wishlist, Photo, FriendRequest, Friends
+from django.views.decorators.csrf import csrf_exempt
 import uuid
 import boto3
 
@@ -148,3 +151,55 @@ def add_to_plan(request, workout_id, plan_id, wishlist_id):
     print(f"workout  is ${workout}")
 
     return redirect('detail', plan_id=plan_id)
+
+
+def friends(request):
+    if Friends.objects.filter(user1=request.user).count():
+        friends = Friends.objects.get(user1=request.user)
+    else:
+        friends = None
+
+    if FriendRequest.objects.filter(to_user=request.user).count():
+        friends_request = FriendRequest.objects.get(to_user=request.user)
+    else:
+        friends_request = None
+
+    return render(request, "friends/friends.html", {"friends": friends, "friends_request": friends_request, "error": False})
+
+
+@csrf_exempt
+def addFriends(request):
+    User = get_user_model()
+
+    if str(request.user) == str(request.POST.get('to_user')) or User.objects.filter(
+            username=request.POST.get('to_user')).count() == 0 or FriendRequest.objects.filter(from_user=request.user,
+                                                                                               to_user=request.POST.get('to_user')).count() != 0:
+        if Friends.objects.filter(user1=request.user).count():
+            friends = Friends.objects.get(user1=request.user)
+        else:
+            friends = None
+
+        if FriendRequest.objects.filter(to_user=request.user).count():
+            friends_request = FriendRequest.objects.get(to_user=request.user)
+        else:
+            friends_request = None
+        return render(request, "friends/friends.html", {"friends": friends, "friends_request": friends_request, "error": True})
+    else:
+        r = FriendRequest(from_user=request.user,
+                          to_user=request.POST.get('to_user'))
+        r.save()
+
+        return redirect('/friends')
+
+
+def acceptRequest(request, id):
+    r = FriendRequest.objects.get(id=id)
+    f = Friends(user1=r.from_user, user2=r.to_user)
+    f.save()
+    FriendRequest.objects.filter(id=id).delete()
+    return redirect('/friends')
+
+
+def declineRequest(request, id):
+    FriendRequest.objects.filter(id=id).delete()
+    return redirect('/friends')
