@@ -26,7 +26,6 @@ class Comments(models.Model):
     wishlists = models.ManyToManyField("Wishlist")
     workout = models.ManyToManyField(Workouts)
 
-
     def __str__(self):
         return self.name
 
@@ -56,7 +55,6 @@ class Plans(models.Model):
 #         return self.name
 
 
-
 class Wishlist(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True)
@@ -66,10 +64,16 @@ class Wishlist(models.Model):
     # def __str__(self):
     #     return f"{self.user}'s wishlist"
 
-
     def __str__(self):
         return str(self.user.username)
 
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    plan = models.ForeignKey(Plans, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for cat_id: {self.plan_id} @{self.url}"
 
 
 class Friends(models.Model):
@@ -80,4 +84,3 @@ class Friends(models.Model):
 class FriendRequest(models.Model):
     to_user = models.CharField(max_length=150)
     from_user = models.CharField(max_length=150)
-
