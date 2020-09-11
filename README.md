@@ -18,6 +18,12 @@ By adding your preferred excises to plans you could easily view the detail of th
 * Create/Edit/Delete a personal plan(registed user)
 * Invite a friend in site via invitation message(registed user)
 
+## Plan Stage
+
+![Page Four](/main_app/static/img/SQL diagram.png?raw=true "sql diagram")
+![Page Five](/main_app/static/img/jira.png?raw=true "jira")
+
+
 ## Techologies Used
 
 * Django
