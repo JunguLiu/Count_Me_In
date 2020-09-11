@@ -25,6 +25,7 @@ By adding your preferred excises to plans you could easily view the detail of th
 * Python
 * HTML/CSS
 * jQuery
+* Heroku Postgres
 * Heroku
 * MVC
 
