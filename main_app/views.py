@@ -20,17 +20,17 @@ BUCKET = 'countmeincmi'
 # plans
 
 
-class PlanCreate(CreateView):
+class PlansCreate(CreateView):
     model = Plans
     fields = ["name", "workout", "url"]
 
 
-class PlanUpdate(UpdateView):
+class PlansUpdate(UpdateView):
     model = Plans
     fields = ["name", "workout"]
 
 
-class PlanDelete(DeleteView):
+class PlansDelete(DeleteView):
     model = Plans
     success_url = '/plans/'
 
