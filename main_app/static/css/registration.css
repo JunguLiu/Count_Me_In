@@ -28,7 +28,6 @@ body {
 
 .create_plan_body {
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../img/creatPlan.jpg);
-
 }
 
 .header {
@@ -124,4 +123,17 @@ span {
     font-size  : 120%;
     font-weight: 700;
     color      : #000;
+}
+
+/*****************  plan detail page**************/
+.plan_detail_body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../img/plan-detail.jpg);
+}
+
+.plan_detail_body {
+    color: #000;
+}
+
+.plan_detail_body input[type=file] {
+    margin: 0 auto;
 }
