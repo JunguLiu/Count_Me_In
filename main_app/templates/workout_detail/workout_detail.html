@@ -6,11 +6,11 @@
         <div class="row">
             <div class="col">
                 <div class="workout-img-details">
-                    <img src="https://via.placeholder.com/550x380/FFB6C1/000000" alt="">
+                    <img src="{{workout.image}}" alt="">
                 </div>
             </div>
             <div class="col">
-                <h4 class="workout-title">Workout name</h4>
+                <h4 class="workout-title">{{workout.name}}</h4>
                 <p>
                     Praesent ac condimentum felis. Nulla at nisl orci, at dignissim dolor, The best product
                     descriptions address your ideal buyer directly and personally. The best product descriptions
@@ -18,15 +18,13 @@
                 </p>
                 <hr>
                 <div class="workout-list">
-                    <span class="posted_in"><strong>Name:</strong> </span><br />
-                    <span class="tagged_as"><strong>Calorioes:</strong> </span><br />
-                    <span class="tagged_as"><strong>Categoris:</strong> </span><br />
+                    <span class="posted_in"><strong>Name:{{workout.name}} </strong> </span><br />
+                    <span class="tagged_as"><strong>Calorioes:{{workout.name}}</strong> </span> <br />
+                    <!-- <span class="tagged_as"><strong>Categoris:</strong> </span><br /> -->
                 </div>
                 <hr>
                 <div class="form-container">
-                    {% if wishlists.workout.count %}
-                    {% for workout in wishlists.workout.all %}
-                    <form action="" method="post">
+                    <form action="{% url 'wishlist_to_plan' workout.id%}" method="post">
                         {% csrf_token %}
                         <input type="submit" class="btn btn-round btn-danger" value="Add to PLAN">
                     </form>
@@ -34,8 +32,6 @@
                         {% csrf_token %}
                         <input type="submit" class="btn btn-round btn-danger" value="Add to WISHLIST">
                     </form>
-                    {% endfor %}
-                    {% endif %}
                 </div>
 
             </div>
