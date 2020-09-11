@@ -10,13 +10,13 @@ By adding your preferred excises to plans you could easily view the detail of th
 
 ## Functionality
 
-Register
-Log in via username & password
-Log out
-view workouts
-Create whishlist(registed user)
-Create/Edit/Delete a personal plan(registed user)
-Invite a friend in site via invitation message(registed user)
+* Register
+* Log in via username & password
+* Log out
+* view workouts
+* Create whishlist(registed user)
+* Create/Edit/Delete a personal plan(registed user)
+* Invite a friend in site via invitation message(registed user)
 
 ## Techologies Used
 
