@@ -1,7 +1,7 @@
 # COUNT ME IN
 
-    COUNT ME IN Django project is for person who has need of build up your own workouts plan. By adding your preferred
-excises to plans you could easily view the detail of this workout and share to your friend. 
+    COUNT ME IN Django project is for person who has need of build up your own workouts plan. 
+By adding your preferred excises to plans you could easily view the detail of this workout and share to your friend. 
  
 ![Page One](https://github.com/sanasdh/Count_Me_In/blob/master/main_app/static/img/mainSC.JPG?raw=true?raw=true "The first page ")
 ![Page Two](static/img/Screenshot2.png?raw=true "Second page of ")
