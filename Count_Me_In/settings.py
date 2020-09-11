@@ -25,7 +25,7 @@ MEDIA_URL = "/media/"
 SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -78,16 +78,14 @@ WSGI_APPLICATION = 'Count_Me_In.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:////{0}'.format(os.path.join(BASE_DIR, 'db.sqlite3')))
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'CMI',
-    #     'USER': config('USER'),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'CMI',
+        'USER': config('USER'),
 
-    #     'PASSWORD': config('PASSWORD'),
+        'PASSWORD': config('PASSWORD'),
 
-    # }
+    }
 }
 
 
