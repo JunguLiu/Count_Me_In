@@ -20,17 +20,17 @@ BUCKET = 'countmeincmi'
 # plans
 
 
-class PlanCreate(CreateView):
+class PlansCreate(CreateView):
     model = Plans
     fields = ["name", "workout", "url"]
 
 
-class PlanUpdate(UpdateView):
+class PlansUpdate(UpdateView):
     model = Plans
     fields = ["name", "workout"]
 
 
-class PlanDelete(DeleteView):
+class PlansDelete(DeleteView):
     model = Plans
     success_url = '/plans/'
 
@@ -47,7 +47,9 @@ def plans_detail(request, plan_id,):
     print(request.user.id)
     print(plan.workout)
     print(plan.workout.all())
-    all_wishlist = Wishlist.objects.get(user_id=request.user.id).workout.all()
+    wishlist = Wishlist(user_id=request.user.id)
+    wishlist.save()
+    all_wishlist = wishlist.workout.all()
     print("++++++++++")
     print(all_wishlist)
     workouts_not_in_plan = all_wishlist.exclude(
@@ -63,8 +65,8 @@ def plans_create(request):
     return render(request, "plan/create.html")
 
 
-def main_page(request):
-    return render(request, "main-page.html")
+# def main_page(request):
+#     return render(request, "main-page.html")
 
 
 def assoc_wishlist_to_plan(request, plan_id, workout_id):
@@ -99,6 +101,12 @@ def unassoc_workout(request, plan_id, workout_id):
 
 def show_main(request):
     workouts = Workouts.objects.all()
+    print("WWWWWWWWWWWWWWWWWW")
+    for workout in workouts:
+        print(workout.id)
+        print(workout.location)
+        print(workout.category)
+
     return render(request, "main-page.html", {"workouts": workouts})
 
 
@@ -177,7 +185,6 @@ def friends(request):
     else:
         friends_request = None
 
-
     return render(request, "friends/friends.html", {"friends": friends, "friends_request": friends_request, "error": False})
 
 
@@ -217,4 +224,3 @@ def acceptRequest(request, id):
 def declineRequest(request, id):
     FriendRequest.objects.filter(id=id).delete()
     return redirect('/friends')
-

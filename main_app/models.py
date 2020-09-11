@@ -31,11 +31,10 @@ class Comments(models.Model):
 
 
 class Plans(models.Model):
-    name = models.CharField(max_length=100),
-    workouts = models.ManyToManyField(Workouts)
-    comments = models.ForeignKey(Comments, on_delete=models.CASCADE)
-    date = models.DateField
-    image = models.ImageField
+    name = models.CharField(max_length=100)
+    url = models.ImageField("image", upload_to='plan_image', blank=True)
+    wishlists = models.ManyToManyField("Wishlist")
+    workout = models.ManyToManyField(Workouts)
 
     def __str__(self):
         return self.name
