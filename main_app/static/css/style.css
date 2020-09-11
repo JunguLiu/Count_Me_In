@@ -257,6 +257,9 @@ footer {
     bottom    : 0;
     text-align: center;
 }
-.uploadingImgae{
-    max-width:600px;
+
+.workout_detail img {
+    width : 100%;
+    height: auto;
+
 }
