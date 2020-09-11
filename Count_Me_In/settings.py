@@ -27,7 +27,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -133,7 +133,6 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 
-
 # LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
 #     # 'index',
 #     'detail',
@@ -148,4 +147,3 @@ LOGOUT_REDIRECT_URL = '/'
 #     'add_to_plan',
 # ]
 django_heroku.settings(locals())
-

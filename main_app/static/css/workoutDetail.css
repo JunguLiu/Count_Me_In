@@ -60,3 +60,6 @@ body {
     align-items    : center;
     padding        : 20px;
 }
+.uploadingImgae{
+    max-width:600px;
+}

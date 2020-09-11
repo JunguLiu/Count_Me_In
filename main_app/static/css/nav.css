@@ -85,3 +85,7 @@
     transform-origin: left;
     transition      : 0.5s transform;
 }
+
+.uploadingImgae{
+    max-width:600px;
+}
